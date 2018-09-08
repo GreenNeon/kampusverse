@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Kampus Verse</string>
+    <string name="login">Log In</string>
+    <string name="loginlink1">Register!</string>
+    <string name="loginlink2">Login!</string>
+    <string name="register">Register</string>
+
+    <string name="profile">PROFILE</string>
+    <string name="about">ABOUT</string>
+    <string name="website">WEBSITE</string>
+    <string name="logout">LOG OUT</string>
+
+    <string name="title_jadwal">Jadwal</string>
+    <string name="title_tugas">Tugas</string>
+    <string name="title_uang">Uang</string>
+    <string name="title_beranda">Beranda</string>
+</resources>

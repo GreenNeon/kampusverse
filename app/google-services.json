@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "151168868645",
+    "firebase_url": "https://kampusbanana.firebaseio.com",
+    "project_id": "kampusbanana",
+    "storage_bucket": "kampusbanana.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151168868645:android:4108588d8c55e9b4",
+        "android_client_info": {
+          "package_name": "com.kampusverse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "151168868645-i4jisbrm2d4j8ii4forfcu9ctkh0afee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5fQ37AR3bJC2ftykW-tbtEIX-M0IZY0Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_beranda"
+        android:icon="@drawable/ic_001_home"
+        android:title="@string/title_beranda" />
+
+    <item
+        android:id="@+id/navigation_jadwal"
+        android:icon="@drawable/ic_002_calendar"
+        android:title="@string/title_jadwal" />
+
+    <item
+        android:id="@+id/navigation_tugas"
+        android:icon="@drawable/ic_003_coffee"
+        android:title="@string/title_tugas" />
+
+    <item
+        android:id="@+id/navigation_uang"
+        android:icon="@drawable/ic_005_university"
+        android:title="@string/title_uang" />
+</menu>
