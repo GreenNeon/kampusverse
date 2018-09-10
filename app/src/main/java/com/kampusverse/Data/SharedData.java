@@ -6,8 +6,9 @@ import java.util.List;
 public class SharedData {
     private static SharedData sdata = null;
     private List<Jadwal> KoleksiJadwal = new ArrayList<>();
+    private List<Uang> KoleksiTransaksi = new ArrayList<>();
     private Profile UserData = null;
-    public final short KOLEKSI_JADWAL = 0;
+    public final short KOLEKSI_JADWAL = 0, KOLEKSI_UANG = 0;
 
     public static SharedData GetInstance() {
         if (sdata == null)
@@ -30,15 +31,22 @@ public class SharedData {
         KoleksiJadwal.remove(i);
     }
 
+    public void AddUang(Uang Data){KoleksiTransaksi.add(Data);}
+    public void RemoveUang(int i){ KoleksiTransaksi.remove(i); }
+
     public List<Jadwal> GetKoleksiJadwal() {
         return KoleksiJadwal;
     }
+    public List<Uang> GetKoleksiTransaksi(){ return KoleksiTransaksi; }
 
     public boolean IsKoleksiEmpty(short type){
         switch (type) {
             case KOLEKSI_JADWAL:
                 if(KoleksiJadwal!= null || KoleksiJadwal.size() > 0)
                     return true;
+//            case KOLEKSI_UANG:
+//                if (KoleksiTransaksi!=null || KoleksiTransaksi.size() > 0)
+//                    return true;
         }
         return false;
     }
