@@ -1,5 +1,7 @@
 package com.kampusverse.UI;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,7 +20,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.kampusverse.Data.Jadwal;
+import com.kampusverse.Data.SharedData;
 import com.kampusverse.R;
+import com.kampusverse.UI.Dialog.AddDialog;
 import com.kampusverse.UI.Fragments.FragmentBeranda;
 import com.kampusverse.UI.Fragments.FragmentJadwal;
 import com.kampusverse.UI.Fragments.FragmentTugas;
@@ -27,7 +33,7 @@ import com.yalantis.guillotine.animation.GuillotineAnimation;
 public class Beranda extends AppCompatActivity {
     private static final long RIPPLE_DURATION = 250;
 
-
+    //View Variable
     Toolbar toolbar;
     FrameLayout root;
     BottomNavigationView bottombar;
@@ -37,21 +43,14 @@ public class Beranda extends AppCompatActivity {
     RelativeLayout.LayoutParams fragmentparams;
     View fragmentlayout;
     FloatingActionButton fab;
+    //Global Variable
+    SharedData sdata;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beranda);
-
-        toolbar = findViewById(R.id.toolbar);
-        title = findViewById(R.id.toolbar_title);
-        bottombar = findViewById(R.id.NavigationBot);
-        root = findViewById(R.id.root);
-        contentHamburger = findViewById(R.id.content_hamburger);
-        contentRight = findViewById(R.id.content_right);
-        fragmentlayout = findViewById(R.id.scrollView2);
-        fragmentparams = (RelativeLayout.LayoutParams) fragmentlayout.getLayoutParams();
-        fab = findViewById(R.id.fab);
+        IntializeView();
 
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -90,6 +89,26 @@ public class Beranda extends AppCompatActivity {
         });
     }
 
+    private void IntializeView() {
+        toolbar = findViewById(R.id.toolbar);
+        title = findViewById(R.id.toolbar_title);
+        bottombar = findViewById(R.id.NavigationBot);
+        root = findViewById(R.id.root);
+        contentHamburger = findViewById(R.id.content_hamburger);
+        contentRight = findViewById(R.id.content_right);
+        fragmentlayout = findViewById(R.id.scrollView2);
+        fragmentparams = (RelativeLayout.LayoutParams) fragmentlayout.getLayoutParams();
+        fab = findViewById(R.id.fab);
+        // Shared Data
+        sdata = SharedData.GetInstance();
+        sdata.InitializeKoleksi();
+    }
+
+    @Override
+    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
+        return super.onCreateView(parent, name, context, attrs);
+    }
+
     public void switchfragment(int id) {
         FragmentManager manager = getSupportFragmentManager();
         fragmentparams.removeRule(RelativeLayout.CENTER_IN_PARENT);
@@ -102,8 +121,11 @@ public class Beranda extends AppCompatActivity {
                 fab.hide();
                 break;
             case R.id.navigation_jadwal:
-                manager.beginTransaction().replace(R.id.fragmentplace, new FragmentJadwal()).commit();
+                // Fragment
+                FragmentJadwal frJadwal =  new FragmentJadwal();
+                manager.beginTransaction().replace(R.id.fragmentplace,frJadwal).commit();
                 fragmentparams.addRule(RelativeLayout.CENTER_IN_PARENT, 0);
+                // VIEW
                 title.setText("Jadwal Kuliah");
                 contentRight.setVisibility(View.VISIBLE);
                 fab.show();
@@ -147,7 +169,8 @@ public class Beranda extends AppCompatActivity {
     public void FABonCLick(View view, int uid) {
         switch (uid) {
             case 1:
-
+                Intent i = new Intent(Beranda.this, AddDialog.class);
+                startActivity(i);
         }
     }
 }

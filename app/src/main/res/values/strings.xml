@@ -14,4 +14,13 @@
     <string name="title_tugas">Tugas</string>
     <string name="title_uang">Uang</string>
     <string name="title_beranda">Beranda</string>
+    <string-array name="spinner_hari">
+        <item>Minggu</item>
+        <item>Senin</item>
+        <item>Selasa</item>
+        <item>Rabu</item>
+        <item>Kamis</item>
+        <item>Jumat</item>
+        <item>Sabtu</item>
+    </string-array>
 </resources>

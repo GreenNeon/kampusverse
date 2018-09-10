@@ -48,9 +48,9 @@ public class TestsJadwal extends AppCompatActivity implements DatePickerDialog.O
         Calendar another = Calendar.getInstance();
         shit.set(2018,Calendar.SEPTEMBER,8);
         List<Jadwal> bundle = new ArrayList<>();
-        bundle.add(new Jadwal("Kalkulus","R3415",shit));
+        bundle.add(new Jadwal("Kalkulus","R3415",Calendar.MONDAY - 1));
         another.set(2018,Calendar.SEPTEMBER,9);
-        bundle.add(new Jadwal("Arsitektur Komputer","R3215",another));
+        bundle.add(new Jadwal("Arsitektur Komputer","R3215",Calendar.WEDNESDAY - 1));
 
         adapter = new AdapterJadwal(bundle);
         rview.setAdapter(adapter);

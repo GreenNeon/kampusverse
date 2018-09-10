@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kampusverse.Data.Jadwal;
+import com.kampusverse.Data.SharedData;
 import com.kampusverse.R;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.List;
 public class AdapterJadwal extends RecyclerView.Adapter<AdapterJadwal.MyViewHolder>{
 
     private List<Jadwal> JadwalBundle = new ArrayList<>();
+    private SharedData sdata;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView Nama, Desc, Reminder;
@@ -43,6 +45,7 @@ public class AdapterJadwal extends RecyclerView.Adapter<AdapterJadwal.MyViewHold
         // create a new view
         View v = (View) LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.recyclejadwal, viewGroup, false);
+        sdata = SharedData.GetInstance();
         return new MyViewHolder(v);
     }
 
@@ -55,8 +58,9 @@ public class AdapterJadwal extends RecyclerView.Adapter<AdapterJadwal.MyViewHold
         vh.bottomWraper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JadwalBundle.remove(i);
-                notifyItemRemoved(i);
+                JadwalBundle.remove(i-1);
+                sdata.RemoveJadwal(i-1);
+                notifyItemRemoved(i-1);
             }
         });
     }

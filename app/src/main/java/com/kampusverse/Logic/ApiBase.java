@@ -23,7 +23,7 @@ public class ApiBase {
     }
 
     private static ApiBase SingleBody = null;
-    final private FirebaseAuth FireAuth;
+    private FirebaseAuth FireAuth;
     private FirebaseUser FireUser;
 
     public static ApiBase GetInstance() {
