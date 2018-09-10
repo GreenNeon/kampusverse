@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kampusverse.Data.Jadwal;
@@ -19,12 +20,16 @@ public class AdapterJadwal extends RecyclerView.Adapter<AdapterJadwal.MyViewHold
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView Nama, Desc, Reminder;
-        // each data item is just a string in this case
+        public LinearLayout topWraper;
+        public LinearLayout bottomWraper;
+
         public MyViewHolder(View v) {
             super(v);
             Nama = v.findViewById(R.id.frgtNamaJadwal);
             Desc = v.findViewById(R.id.frgtDescJadwal);
             Reminder = v.findViewById(R.id.frgtReminder);
+            bottomWraper= v.findViewById(R.id.bottom_wrapper);
+            topWraper = v.findViewById(R.id.top_wrapper);
         }
     }
 
@@ -42,11 +47,18 @@ public class AdapterJadwal extends RecyclerView.Adapter<AdapterJadwal.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterJadwal.MyViewHolder vh, int i) {
+    public void onBindViewHolder(@NonNull AdapterJadwal.MyViewHolder vh, final int i) {
         Jadwal data = JadwalBundle.get(i);
         vh.Nama.setText(data.getNama());
         vh.Desc.setText(data.getDesc());
         vh.Reminder.setText(data.GetElapsedAsString());
+        vh.bottomWraper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JadwalBundle.remove(i);
+                notifyItemRemoved(i);
+            }
+        });
     }
 
     @Override

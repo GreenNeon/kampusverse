@@ -28,13 +28,13 @@
             android:textColor="@android:color/black"
             android:textSize="32sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/eUsernameLogin"
+            app:layout_constraintBottom_toTopOf="@+id/eUsernameRegister"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <EditText
-            android:id="@+id/eUsernameLogin"
+            android:id="@+id/eUsernameRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -43,14 +43,14 @@
             android:ems="10"
             android:hint="Username"
             android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/ePasswordLogin"
+            app:layout_constraintBottom_toTopOf="@+id/ePasswordRegister"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <EditText
-            android:id="@+id/ePasswordLogin"
+            android:id="@+id/ePasswordRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="7dp"
@@ -63,7 +63,7 @@
             app:layout_constraintBottom_toTopOf="@+id/tvErrorLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/eUsernameLogin"
+            app:layout_constraintTop_toBottomOf="@+id/eUsernameRegister"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
@@ -76,13 +76,13 @@
             android:layout_marginTop="8dp"
             android:text="Unknow Error"
             android:textColor="@android:color/holo_red_dark"
-            app:layout_constraintBottom_toTopOf="@+id/btnLoginLogin"
+            app:layout_constraintBottom_toTopOf="@+id/btnRegisterLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ePasswordLogin" />
+            app:layout_constraintTop_toBottomOf="@+id/ePasswordRegister" />
 
         <Button
-            android:id="@+id/btnLoginLogin"
+            android:id="@+id/btnRegisterLogin"
             style="@style/Base.Widget.AppCompat.Button.Borderless"
             android:layout_width="210dp"
             android:layout_height="wrap_content"
@@ -106,13 +106,13 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="Gak punya akun? "
-            app:layout_constraintEnd_toStartOf="@+id/tvRegisterLogin"
+            app:layout_constraintEnd_toStartOf="@+id/tvLoginRegister"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLoginLogin" />
+            app:layout_constraintTop_toBottomOf="@+id/btnRegisterLogin" />
 
         <TextView
-            android:id="@+id/tvRegisterLogin"
+            android:id="@+id/tvLoginRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -123,7 +123,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/btnLoginLogin"
+            app:layout_constraintTop_toBottomOf="@+id/btnRegisterLogin"
             android:onClick="RegisterOnClick"/>
 
         <TextView

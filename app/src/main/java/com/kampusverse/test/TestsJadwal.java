@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.kampusverse.Data.Jadwal;
@@ -29,6 +30,7 @@ public class TestsJadwal extends AppCompatActivity implements DatePickerDialog.O
     private RecyclerView rview;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layout;
+    private SwipeLayout swiper;
 
 
     @Override
@@ -36,7 +38,7 @@ public class TestsJadwal extends AppCompatActivity implements DatePickerDialog.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tests_jadwal);
 
-
+        swiper = findViewById(R.id.swiper);
         rview = findViewById(R.id.rctest);
         rview.setHasFixedSize(true);
         layout = new LinearLayoutManager(this);
@@ -52,6 +54,7 @@ public class TestsJadwal extends AppCompatActivity implements DatePickerDialog.O
 
         adapter = new AdapterJadwal(bundle);
         rview.setAdapter(adapter);
+
     }
 
     public void TestPicker(){

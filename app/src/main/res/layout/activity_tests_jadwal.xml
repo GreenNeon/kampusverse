@@ -19,8 +19,8 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rctest"
-        android:layout_width="317dp"
-        android:layout_height="390dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swiper"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="80dp">
     <!-- Bottom View Start-->
     <LinearLayout
         android:id="@+id/bottom_wrapper"
-        android:layout_width="160dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#66ddff00"
+        android:background="#424242"
         android:orientation="horizontal"
         android:weightSum="1">
         <!--What you want to show-->
-
+        
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DELETESU"
-            android:textSize="18sp"
-            android:textColor="#44ff0707"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:fontFamily="@font/lato"
+            android:text="Click here to delete"/>
     </LinearLayout>
     <!-- Bottom View End-->
 
     <!-- Surface View Start -->
     <LinearLayout
+        android:id="@+id/top_wrapper"
         android:orientation="horizontal"
         android:padding="10dp"
         android:background="#ffffff"
