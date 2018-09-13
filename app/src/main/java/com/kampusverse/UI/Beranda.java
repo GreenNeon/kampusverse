@@ -6,13 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -20,8 +18,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.kampusverse.Data.Jadwal;
-import com.kampusverse.Data.SharedData;
+import com.kampusverse.Logic.SharedData;
 import com.kampusverse.R;
 import com.kampusverse.UI.Dialog.AddDialog;
 import com.kampusverse.UI.Fragments.FragmentBeranda;
@@ -31,8 +28,6 @@ import com.kampusverse.UI.Fragments.FragmentUang;
 import com.yalantis.guillotine.animation.GuillotineAnimation;
 
 public class Beranda extends AppCompatActivity {
-    private static final long RIPPLE_DURATION = 250;
-
     //View Variable
     Toolbar toolbar;
     FrameLayout root;
@@ -45,6 +40,7 @@ public class Beranda extends AppCompatActivity {
     FloatingActionButton fab;
     //Global Variable
     SharedData sdata;
+    static int view_position = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,22 +62,28 @@ public class Beranda extends AppCompatActivity {
                 .setClosedOnStart(true)
                 .build();
 
-        switchfragment(R.id.navigation_beranda);
+        switch (getIntent().getIntExtra("addDialog",0)){
+            case 0: bottombar.setSelectedItemId(R.id.navigation_beranda); switchfragment(R.id.navigation_beranda);break;
+            case 1: bottombar.setSelectedItemId(R.id.navigation_jadwal); switchfragment(R.id.navigation_jadwal);break;
+            case 2: bottombar.setSelectedItemId(R.id.navigation_tugas); switchfragment(R.id.navigation_tugas);break;
+            case 3: bottombar.setSelectedItemId(R.id.navigation_uang); switchfragment(R.id.navigation_uang);break;
+        }
+
         bottombar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_beranda:
-                        switchfragment(R.id.navigation_beranda);
+                        if(view_position != 0) switchfragment(R.id.navigation_beranda);
                         return true;
                     case R.id.navigation_jadwal:
-                        switchfragment(R.id.navigation_jadwal);
+                        if(view_position != 1) switchfragment(R.id.navigation_jadwal);
                         return true;
                     case R.id.navigation_tugas:
-                        switchfragment(R.id.navigation_tugas);
+                        if(view_position != 2) switchfragment(R.id.navigation_tugas);
                         return true;
                     case R.id.navigation_uang:
-                        switchfragment(R.id.navigation_uang);
+                        if(view_position != 3) switchfragment(R.id.navigation_uang);
                         return true;
                 }
                 return false;
@@ -114,6 +116,7 @@ public class Beranda extends AppCompatActivity {
         fragmentparams.removeRule(RelativeLayout.CENTER_IN_PARENT);
         switch (id) {
             case R.id.navigation_beranda:
+                view_position = 0;
                 manager.beginTransaction().replace(R.id.fragmentplace, new FragmentBeranda()).commit();
                 title.setText("Kampus Verse");
                 fragmentparams.addRule(RelativeLayout.CENTER_IN_PARENT);
@@ -121,6 +124,7 @@ public class Beranda extends AppCompatActivity {
                 fab.hide();
                 break;
             case R.id.navigation_jadwal:
+                view_position = 1;
                 // Fragment
                 FragmentJadwal frJadwal =  new FragmentJadwal();
                 manager.beginTransaction().replace(R.id.fragmentplace,frJadwal).commit();
@@ -129,48 +133,43 @@ public class Beranda extends AppCompatActivity {
                 title.setText("Jadwal Kuliah");
                 contentRight.setVisibility(View.VISIBLE);
                 fab.show();
-                fab.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        FABonCLick(v, 1);
-                    }
-                });
                 break;
             case R.id.navigation_tugas:
+                view_position = 2;
                 manager.beginTransaction().replace(R.id.fragmentplace, new FragmentTugas()).commit();
                 fragmentparams.addRule(RelativeLayout.CENTER_IN_PARENT, 0);
                 title.setText("Jadwal Tugas");
                 contentRight.setVisibility(View.VISIBLE);
                 fab.show();
-                fab.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        FABonCLick(v, 2);
-                    }
-                });
                 break;
             case R.id.navigation_uang:
+                view_position = 3;
                 manager.beginTransaction().replace(R.id.fragmentplace, new FragmentUang()).commit();
                 fragmentparams.addRule(RelativeLayout.CENTER_IN_PARENT, 0);
                 title.setText("Keuangan Anda");
                 contentRight.setVisibility(View.VISIBLE);
                 fab.show();
-                fab.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        FABonCLick(v, 3);
-                    }
-                });
                 break;
         }
         fragmentlayout.setLayoutParams(fragmentparams);
     }
 
-    public void FABonCLick(View view, int uid) {
-        switch (uid) {
+    public void FABonCLick(View view) {
+        Intent i;
+        switch (view_position) {
             case 1:
-                Intent i = new Intent(Beranda.this, AddDialog.class);
+                i = new Intent(Beranda.this, AddDialog.class);
+                i.putExtra("simpan", -1);
                 startActivity(i);
+                break;
+            case 2:
+                i = new Intent(Beranda.this, AddDialog.class);
+                startActivity(i);
+                break;
+            case 3:
+                i = new Intent(Beranda.this, AddDialog.class);
+                startActivity(i);
+                break;
         }
     }
 }

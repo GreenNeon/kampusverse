@@ -32,7 +32,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/frgtjadwalkat2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="21"
@@ -42,7 +42,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/frgtjadwalkam2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sep"
@@ -68,7 +68,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/frgtjadwalkat1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="21"
@@ -78,7 +78,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/frgtjadwalkam1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sep"
@@ -103,7 +103,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/frgtjadwalcet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="21"
@@ -113,7 +113,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/frgtjadwalcem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sep"
@@ -139,7 +139,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/frgtjadwalkit2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="21"
@@ -149,7 +149,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/frgtjadwalkim2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sep"
@@ -172,7 +172,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/frgtjadwalkit1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="21"
@@ -182,7 +182,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/frgtjadwalkim1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sep"
@@ -195,7 +195,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="483dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -204,6 +204,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/jadwal_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp" />
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

@@ -65,6 +65,23 @@
         </android.support.v7.widget.Toolbar>
 
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/holo_blue_dark"
+            android:onClick="FABonCLick"
+            android:src="@drawable/googleg_standard_color_18"
+            app:backgroundTint="@color/bgLogin"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toTopOf="@id/NavigationBot"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:rippleColor="?attr/colorControlHighlight" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -105,14 +122,4 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
-        android:background="@android:color/holo_blue_dark"
-        android:src="@drawable/googleg_standard_color_18"
-        app:backgroundTint="@color/bgLogin"
-        app:rippleColor="@color/colorAccent" />
 </FrameLayout>

@@ -3,12 +3,15 @@ package com.kampusverse.Data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.kampusverse.Logic.Common;
+
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 public class Jadwal implements Parcelable{
-    String Nama, Desc;
-    Calendar Reminder;
+    private String Nama, Desc;
+    private Calendar Reminder;
+    private Common util = new Common();
 
     public Jadwal() {
     }
@@ -17,22 +20,7 @@ public class Jadwal implements Parcelable{
         Nama = nama;
         Desc = desc;
         Reminder = Calendar.getInstance();
-        Reminder.setTimeInMillis(UpdateReminder(hari));
-    }
-
-    private Long UpdateReminder(int hari) {
-        Calendar thisday = Calendar.getInstance();
-        //contoh hari = 1 sunday, reminder 7 saturday
-        int date = 0;
-        if(thisday.get(Calendar.DAY_OF_WEEK) > hari)
-            date = thisday.get(Calendar.DAY_OF_WEEK) - hari;
-        else if(thisday.get(Calendar.DAY_OF_WEEK) == hari)
-            date = 7;
-        else
-            date = hari - thisday.get(Calendar.DAY_OF_WEEK);
-        thisday.add(Calendar.DATE, date);
-        return thisday.getTimeInMillis();
-
+        Reminder = util.calendarByDays(Reminder,hari + 1);
     }
 
     protected Jadwal(Parcel in) {
@@ -92,15 +80,20 @@ public class Jadwal implements Parcelable{
     }
 
     public String GetElapsedAsString() {
-        Long Remaining = Calendar.getInstance().getTimeInMillis() - Reminder.getTimeInMillis();
-        long day = TimeUnit.MILLISECONDS.toDays(Remaining),
-                hour = TimeUnit.MILLISECONDS.toHours(Remaining) % 24,
-                minute = TimeUnit.MILLISECONDS.toMinutes(Remaining) % 60,
-                second = TimeUnit.MILLISECONDS.toSeconds(Remaining) % 3600 % 60;
+        Calendar Today = Calendar.getInstance();
+        int day = util.timeSpanToNextMatkul(Today, Reminder);
+        if(day < 0) {
+            setReminder(util.nextWeekAfter(Today, Reminder));
+            day = util.timeSpanToNextMatkul(Today, Reminder);
+        }
 
-        if(Remaining > 1)
-            return (Calendar.SATURDAY-day)+"days";
+        if(day > 1)
+            return day+"days";
+        else if(day == 1)
+            return "less than a day";
+        else if(Today.get(Calendar.DAY_OF_WEEK) == Reminder.get(Calendar.DAY_OF_WEEK))
+            return "now";
         else
-            return (Calendar.SATURDAY-day)+"day";
+            return "less than a day";
     }
 }

@@ -3,7 +3,8 @@
     android:id="@+id/swiper"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="80dp">
+    android:layout_width="match_parent" android:layout_height="80dp"
+    android:layout_margin="5dp" android:background="@drawable/container_dropshadow">
     <!-- Bottom View Start-->
     <LinearLayout
         android:id="@+id/bottom_wrapper"
@@ -30,17 +31,24 @@
     <LinearLayout
         android:id="@+id/top_wrapper"
         android:orientation="horizontal"
-        android:padding="10dp"
         android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <!--What you want to show in SurfaceView-->
 
         <FrameLayout
-            android:layout_width="48dp"
+            android:layout_width="77dp"
             android:layout_height="match_parent"
-            android:background="#333">
+            android:background="@color/design_default_color_primary">
 
+            <FrameLayout
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_recurrence_bubble_fill"
+                android:backgroundTint="#fff">
+
+            </FrameLayout>
         </FrameLayout>
 
         <android.support.constraint.ConstraintLayout
@@ -49,40 +57,61 @@
 
             <TextView
                 android:id="@+id/frgtNamaJadwal"
-                android:layout_width="237dp"
+                android:layout_width="178dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:text="Nama Mata Kuliah"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintEnd_toStartOf="@+id/frgtHariJadwal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.121" />
+                app:layout_constraintVertical_bias="0.262" />
 
             <TextView
                 android:id="@+id/frgtDescJadwal"
                 android:layout_width="148dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="19dp"
                 android:layout_marginTop="8dp"
                 android:text="R3814 Yo"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/frgtReminder"
+                app:layout_constraintHorizontal_bias="0.235"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="@+id/frgtNamaJadwal"
-                app:layout_constraintTop_toBottomOf="@+id/frgtNamaJadwal" />
+                app:layout_constraintTop_toBottomOf="@+id/frgtNamaJadwal"
+                app:layout_constraintVertical_bias="0.272" />
 
             <TextView
                 android:id="@+id/frgtReminder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="36dp"
                 android:layout_marginTop="12dp"
-                android:text="24h,12j30m"
+                android:text="7days"
                 android:textSize="11sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/frgtDescJadwal"
-                app:layout_constraintTop_toBottomOf="@+id/frgtNamaJadwal" />
+                app:layout_constraintTop_toBottomOf="@+id/frgtNamaJadwal"
+                app:layout_constraintVertical_bias="0.272" />
+
+            <TextView
+                android:id="@+id/frgtHariJadwal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Kamis"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.177" />
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>
     <!-- Surface View End -->

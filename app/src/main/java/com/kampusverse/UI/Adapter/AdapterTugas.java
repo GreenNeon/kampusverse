@@ -1,7 +1,5 @@
 package com.kampusverse.UI.Adapter;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,19 +9,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kampusverse.Data.Jadwal;
-import com.kampusverse.Logic.SharedData;
 import com.kampusverse.R;
-import com.kampusverse.UI.Beranda;
-import com.kampusverse.UI.Dialog.AddDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class AdapterJadwal extends RecyclerView.Adapter<AdapterJadwal.MyViewHolder> {
-
+public class AdapterTugas extends RecyclerView.Adapter<AdapterTugas.MyViewHolder> {
     private List<Jadwal> JadwalBundle = new ArrayList<>();
-    private Context context;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView Nama, Desc, Reminder, Hari;
@@ -41,37 +34,28 @@ public class AdapterJadwal extends RecyclerView.Adapter<AdapterJadwal.MyViewHold
         }
     }
 
-    public AdapterJadwal(List<Jadwal> JadwalBundle, Context context) {
+    public AdapterTugas(List<Jadwal> JadwalBundle) {
         this.JadwalBundle = JadwalBundle;
-        this.context = context;
     }
 
     @NonNull
     @Override
-    public AdapterJadwal.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public AdapterTugas.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         // create a new view
         View v = (View) LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.recyclejadwal, viewGroup, false);
-        return new MyViewHolder(v);
+        return new AdapterTugas.MyViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterJadwal.MyViewHolder vh, final int i) {
-        String[] days = {"Unknown","Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"};
+    public void onBindViewHolder(@NonNull AdapterTugas.MyViewHolder vh, final int i) {
+        String[] days = {"Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"};
         Jadwal data = JadwalBundle.get(i);
         final int ifinal = vh.getAdapterPosition();
         vh.Nama.setText(data.getNama());
         vh.Desc.setText(data.getDesc());
         vh.Reminder.setText(data.GetElapsedAsString());
         vh.Hari.setText(days[data.getReminder().get(Calendar.DAY_OF_WEEK)]);
-        vh.topWraper.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, AddDialog.class);
-                intent.putExtra("simpan", i);
-                context.startActivity(intent);
-            }
-        });
         vh.bottomWraper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

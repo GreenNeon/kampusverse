@@ -18,7 +18,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".UI.Register" />
-        <activity android:name=".test.TestsJadwal" />
         <activity android:name=".UI.Login" />
         <activity android:name=".UI.Dialog.AddDialog"></activity>
     </application>
