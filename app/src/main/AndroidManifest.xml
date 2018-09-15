@@ -19,7 +19,8 @@
         </activity>
         <activity android:name=".UI.Register" />
         <activity android:name=".UI.Login" />
-        <activity android:name=".UI.Dialog.AddDialog"></activity>
+        <activity android:name=".UI.Dialog.AddDialog" />
+        <activity android:name=".UI.Dialog.AddTugas"></activity>
     </application>
 
 </manifest>

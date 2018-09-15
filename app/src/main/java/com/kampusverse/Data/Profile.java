@@ -2,7 +2,8 @@ package com.kampusverse.Data;
 
 import android.net.Uri;
 
-import com.google.firebase.auth.FirebaseUser;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Profile {
     private String UID;
@@ -11,11 +12,16 @@ public class Profile {
 
     public Profile() {}
 
-    public Profile(FirebaseUser user) {
-        UID = user.getUid();
-        Nama = user.getDisplayName();
-        FotoURL = user.getPhotoUrl();
-        Email = user.getEmail();
+    public Profile(JSONObject user) {
+        try {
+            UID = user.getString("uid");
+            Nama = user.getString("nama");
+            FotoURL = Uri.parse(user.getString("fotourl"));
+            Email = user.getString("email");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public String getUID() {

@@ -6,10 +6,11 @@ import android.os.Parcelable;
 import com.kampusverse.Logic.Common;
 
 import java.util.Calendar;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class Jadwal implements Parcelable{
-    private String Nama, Desc;
+    private String Nama, Desc, UID;
     private Calendar Reminder;
     private Common util = new Common();
 
@@ -17,6 +18,7 @@ public class Jadwal implements Parcelable{
     }
 
     public Jadwal(String nama, String desc, int hari) {
+        UID = UUID.randomUUID().toString();
         Nama = nama;
         Desc = desc;
         Reminder = Calendar.getInstance();
@@ -27,6 +29,7 @@ public class Jadwal implements Parcelable{
         Nama = in.readString();
         Desc = in.readString();
         Long millis = in.readLong();
+        UID = in.readString();
         Reminder = Calendar.getInstance();
         Reminder.setTimeInMillis(millis);
     }
@@ -53,8 +56,10 @@ public class Jadwal implements Parcelable{
         dest.writeString(Nama);
         dest.writeString(Desc);
         dest.writeLong(Reminder.getTimeInMillis());
+        dest.writeString(UID);
     }
 
+    public String getUID() { return UID; }
     public String getNama() {
         return Nama;
     }

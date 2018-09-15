@@ -11,9 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kampusverse.Data.Jadwal;
-import com.kampusverse.Logic.SharedData;
 import com.kampusverse.R;
-import com.kampusverse.UI.Beranda;
 import com.kampusverse.UI.Dialog.AddDialog;
 
 import java.util.ArrayList;
@@ -32,12 +30,12 @@ public class AdapterJadwal extends RecyclerView.Adapter<AdapterJadwal.MyViewHold
 
         public MyViewHolder(View v) {
             super(v);
-            Nama = v.findViewById(R.id.frgtNamaJadwal);
+            Nama = v.findViewById(R.id.frgtNamaTugas);
             Desc = v.findViewById(R.id.frgtDescJadwal);
             Reminder = v.findViewById(R.id.frgtReminder);
             bottomWraper = v.findViewById(R.id.bottom_wrapper);
             topWraper = v.findViewById(R.id.top_wrapper);
-            Hari = v.findViewById(R.id.frgtHariJadwal);
+            Hari = v.findViewById(R.id.frgtHariTugas);
         }
     }
 

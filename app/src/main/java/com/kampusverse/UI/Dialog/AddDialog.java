@@ -8,7 +8,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.kampusverse.Data.Jadwal;
-import com.kampusverse.Logic.ApiBase;
 import com.kampusverse.Logic.SharedData;
 import com.kampusverse.R;
 import com.kampusverse.UI.Beranda;
@@ -28,7 +27,7 @@ public class AddDialog extends AppCompatActivity {
 
         eDesc = findViewById(R.id.addDesc);
         eNama = findViewById(R.id.addNama);
-        spinner = findViewById(R.id.addDate);
+        spinner = findViewById(R.id.addJadwal);
         sdata = SharedData.GetInstance();
 
         simpan = getIntent().getIntExtra("simpan",-1);

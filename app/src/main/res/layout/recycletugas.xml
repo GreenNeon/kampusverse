@@ -14,7 +14,7 @@
         android:orientation="horizontal"
         android:weightSum="1">
         <!--What you want to show-->
-        
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -36,21 +36,6 @@
         android:layout_height="match_parent">
         <!--What you want to show in SurfaceView-->
 
-        <FrameLayout
-            android:layout_width="77dp"
-            android:layout_height="match_parent"
-            android:background="@color/design_default_color_primary">
-
-            <FrameLayout
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:background="@drawable/ic_recurrence_bubble_fill"
-                android:backgroundTint="#fff">
-
-            </FrameLayout>
-        </FrameLayout>
-
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -70,7 +55,7 @@
                 app:layout_constraintVertical_bias="0.262" />
 
             <TextView
-                android:id="@+id/frgtDescJadwal"
+                android:id="@+id/frgtDescTugas"
                 android:layout_width="148dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -111,7 +96,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.177" />
+                app:layout_constraintVertical_bias="0.21" />
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>
     <!-- Surface View End -->

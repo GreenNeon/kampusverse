@@ -21,6 +21,8 @@ import android.widget.TextView;
 import com.kampusverse.Logic.SharedData;
 import com.kampusverse.R;
 import com.kampusverse.UI.Dialog.AddDialog;
+import com.kampusverse.UI.Dialog.AddTransaksi;
+import com.kampusverse.UI.Dialog.AddTugas;
 import com.kampusverse.UI.Fragments.FragmentBeranda;
 import com.kampusverse.UI.Fragments.FragmentJadwal;
 import com.kampusverse.UI.Fragments.FragmentTugas;
@@ -163,11 +165,13 @@ public class Beranda extends AppCompatActivity {
                 startActivity(i);
                 break;
             case 2:
-                i = new Intent(Beranda.this, AddDialog.class);
+                i = new Intent(Beranda.this, AddTugas.class);
+                i.putExtra("simpan", -1);
                 startActivity(i);
                 break;
             case 3:
-                i = new Intent(Beranda.this, AddDialog.class);
+                i = new Intent(Beranda.this, AddTransaksi.class);
+                i.putExtra("simpan", -1);
                 startActivity(i);
                 break;
         }

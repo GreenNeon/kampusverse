@@ -14,6 +14,11 @@ public class Common {
     public Common() {
     }
 
+    public int timeSpanToOnce(Calendar today, Calendar dayOfBirth) {
+        if (dayOfBirth.getTimeInMillis() < today.getTimeInMillis())
+            return -1;
+        return timeSpanInDays(today, dayOfBirth);
+    }
     public int timeSpanToNextMatkul(Calendar today, Calendar dayOfBirth) {
         Calendar nextWeekAfter = nextWeekAfter(today, dayOfBirth);
         if (dayOfBirth.getTimeInMillis() < today.getTimeInMillis())

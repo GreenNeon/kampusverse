@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.Dialog.AddDialog">
+    tools:context=".UI.Dialog.AddTugas">
 
     <EditText
         android:id="@+id/addNama"
@@ -76,4 +76,29 @@
         app:layout_constraintHorizontal_bias="0.015"
         app:layout_constraintStart_toStartOf="parent"
         android:onClick="OnClickBatal"/>
+
+    <Button
+        android:id="@+id/addTanggal"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="8dp"
+        android:text="Tanggal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addJadwal"
+        android:onClick="OnClickTanggal"/>
+
+    <TextView
+        android:id="@+id/tTanggal"
+        android:layout_width="161dp"
+        android:layout_height="26dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.192"
+        app:layout_constraintStart_toEndOf="@+id/addTanggal"
+        app:layout_constraintTop_toBottomOf="@+id/addJadwal" />
 </android.support.constraint.ConstraintLayout>
