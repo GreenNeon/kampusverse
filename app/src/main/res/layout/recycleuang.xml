@@ -38,9 +38,19 @@
 
         <FrameLayout
             android:layout_width="48dp"
-            android:layout_height="match_parent"
-            android:background="#333">
+            android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/frgtSymbolUang"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/lato"
+                android:gravity="center"
+                android:text="+"
+                android:textAlignment="center"
+                android:textColor="@color/default_button_background_pressed_light"
+                android:textSize="42sp"
+                android:textStyle="bold" />
         </FrameLayout>
 
         <android.support.constraint.ConstraintLayout

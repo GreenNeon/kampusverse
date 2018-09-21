@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:text="21"
                 android:textAlignment="center"
-                android:textColor="#fff"
+                android:textColor="@color/textdark"
                 android:textSize="9sp"
                 android:textStyle="bold" />
 
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="Sep"
                 android:textAlignment="center"
-                android:textColor="#fff"
+                android:textColor="@color/textdark"
                 android:textSize="8sp" />
         </LinearLayout>
 
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:text="21"
                 android:textAlignment="center"
-                android:textColor="#fff"
+                android:textColor="@color/textdark"
                 android:textSize="9sp"
                 android:textStyle="bold" />
 
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:text="Sep"
                 android:textAlignment="center"
-                android:textColor="#fff"
+                android:textColor="@color/textdark"
                 android:textSize="8sp" />
         </LinearLayout>
 
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:text="21"
                 android:textAlignment="center"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimary"
                 android:textSize="9sp"
                 android:textStyle="bold" />
 
@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:text="Sep"
                 android:textAlignment="center"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="8sp" />
         </LinearLayout>
 
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:text="21"
                 android:textAlignment="center"
-                android:textColor="#fff"
+                android:textColor="@color/textdark"
                 android:textSize="9sp"
                 android:textStyle="bold" />
 
@@ -154,7 +154,7 @@
                 android:layout_height="wrap_content"
                 android:text="Sep"
                 android:textAlignment="center"
-                android:textColor="#fff"
+                android:textColor="@color/textdark"
                 android:textSize="8sp" />
         </LinearLayout>
 
@@ -177,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:text="21"
                 android:textAlignment="center"
-                android:textColor="#fff"
+                android:textColor="@color/textdark"
                 android:textSize="9sp"
                 android:textStyle="bold" />
 
@@ -187,7 +187,7 @@
                 android:layout_height="wrap_content"
                 android:text="Sep"
                 android:textAlignment="center"
-                android:textColor="#fff"
+                android:textColor="@color/textdark"
                 android:textSize="8sp" />
         </LinearLayout>
 

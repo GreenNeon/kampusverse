@@ -9,19 +9,47 @@ public class Profile {
     private String UID;
     private String Nama, Email;
     private Uri FotoURL;
+    private String IDToken, RefreshToken;
 
     public Profile() {}
 
-    public Profile(JSONObject user) {
-        try {
-            UID = user.getString("uid");
-            Nama = user.getString("nama");
-            FotoURL = Uri.parse(user.getString("fotourl"));
-            Email = user.getString("email");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public Profile(String UID, String nama, String email, Uri fotoURL, String IDToken, String refreshToken) {
+        this.UID = UID;
+        Nama = nama;
+        Email = email;
+        FotoURL = fotoURL;
+        this.IDToken = IDToken;
+        RefreshToken = refreshToken;
+    }
 
+    public Profile(String UID, String nama, String email, String IDToken, String refreshToken) {
+        this.UID = UID;
+        Nama = nama;
+        Email = email;
+        this.IDToken = IDToken;
+        RefreshToken = refreshToken;
+    }
+
+    public void UpdateToken(String UID, String IDToken, String refreshToken) {
+        this.UID = UID;
+        this.IDToken = IDToken;
+        RefreshToken = refreshToken;
+    }
+
+    public String getIDToken() {
+        return IDToken;
+    }
+
+    public void setIDToken(String IDToken) {
+        this.IDToken = IDToken;
+    }
+
+    public String getRefreshToken() {
+        return RefreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        RefreshToken = refreshToken;
     }
 
     public String getUID() {

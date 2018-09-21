@@ -9,8 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.kampusverse.Data.SharedData;
+import com.kampusverse.Logic.SharedData;
 import com.kampusverse.R;
 import com.kampusverse.UI.Adapter.AdapterUang;
 
@@ -19,6 +20,8 @@ public class FragmentUang extends Fragment {
     private RecyclerView rview;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layout;
+
+    private TextView tBalance;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,15 +33,21 @@ public class FragmentUang extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frguang,container,false);
 
+        sdata = SharedData.GetInstance();
+
         rview = view.findViewById(R.id.transaksi_list);
+        tBalance = view.findViewById(R.id.frgtBalanceUang);
         rview.setHasFixedSize(true);
         layout = new LinearLayoutManager(getContext());
         rview.setLayoutManager(layout);
 
-        sdata = SharedData.GetInstance();
-        adapter = new AdapterUang(sdata.GetKoleksiTransaksi());
+        adapter = new AdapterUang(sdata.GetKoleksiUang(), FragmentUang.this);
         rview.setAdapter(adapter);
+
+        SetBalance();
+
         
         return view;
     }
+    public void SetBalance(){tBalance.setText(String.valueOf(sdata.GetUserUang())); }
 }

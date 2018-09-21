@@ -6,11 +6,12 @@ import android.os.Parcelable;
 import com.kampusverse.Logic.Common;
 import com.kampusverse.Logic.SharedData;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.UUID;
 
-public class Tugas implements Parcelable {
+public class Tugas implements Serializable {
     private String Nama, Desc, UID, JUID;
     private Calendar Reminder;
     private Common util = new Common();
@@ -24,27 +25,6 @@ public class Tugas implements Parcelable {
         this.JUID = JUID;
         Reminder = reminder;
     }
-
-    protected Tugas(Parcel in) {
-        Nama = in.readString();
-        Desc = in.readString();
-        UID = in.readString();
-        JUID = in.readString();
-        Long millis = in.readLong();
-        Reminder.setTimeInMillis(millis);
-    }
-
-    public static final Creator<Tugas> CREATOR = new Creator<Tugas>() {
-        @Override
-        public Tugas createFromParcel(Parcel in) {
-            return new Tugas(in);
-        }
-
-        @Override
-        public Tugas[] newArray(int size) {
-            return new Tugas[size];
-        }
-    };
 
     public String getUID() {
         return UID;
@@ -102,19 +82,5 @@ public class Tugas implements Parcelable {
             return "now";
         else
             return "Overdue";
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(Nama);
-        dest.writeString(Desc);
-        dest.writeString(UID);
-        dest.writeString(JUID);
-        dest.writeLong(Reminder.getTimeInMillis());
     }
 }

@@ -37,7 +37,7 @@
         <!--What you want to show in SurfaceView-->
 
         <FrameLayout
-            android:layout_width="77dp"
+            android:layout_width="61dp"
             android:layout_height="match_parent"
             android:background="@color/design_default_color_primary">
 

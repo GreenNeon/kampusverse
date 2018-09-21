@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.Dialog.AddDialog">
+    tools:context=".UI.Dialog.AddTransaksi">
 
     <EditText
         android:id="@+id/addNama"
@@ -25,11 +25,10 @@
         android:id="@+id/addPerubahan"
         android:layout_width="261dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Perubahan Uang"
-        android:inputType="textPersonName"
+        android:inputType="number|numberSigned"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"

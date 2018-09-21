@@ -17,7 +17,7 @@
 
         <LinearLayout
             android:layout_width="160dp"
-            android:layout_height="63dp"
+            android:layout_height="73dp"
             android:layout_marginBottom="80dp"
             android:layout_marginEnd="22dp"
             android:layout_marginStart="8dp"
@@ -26,31 +26,31 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.538"
+            app:layout_constraintHorizontal_bias="0.553"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.006">
+            app:layout_constraintVertical_bias="0.162">
 
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
+                android:text="Balance :"
                 android:textAlignment="center"
-                android:textColor="#fff"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:text="Balance :" />
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/frgtBalanceUang"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
+                android:text="Rp 2.000.000"
                 android:textAlignment="center"
-                android:textColor="#fff"
+                android:textColor="@color/textdark"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="Rp 2.000.000"
                 tools:layout_editor_absoluteX="162dp"
                 tools:layout_editor_absoluteY="67dp" />
         </LinearLayout>
@@ -58,17 +58,23 @@
     </android.support.constraint.ConstraintLayout>
 
     <ScrollView
+        android:id="@+id/sc1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="431dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="0.0">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/transaksi_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@color/bpBlue"
+            android:visibility="visible" />
     </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

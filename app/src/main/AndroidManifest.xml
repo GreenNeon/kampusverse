@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".UI.Beranda">
+        <activity android:name=".UI.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,9 +18,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".UI.Register" />
-        <activity android:name=".UI.Login" />
+        <activity android:name=".UI.Beranda" />
         <activity android:name=".UI.Dialog.AddDialog" />
-        <activity android:name=".UI.Dialog.AddTugas"></activity>
+        <activity android:name=".UI.Dialog.AddTugas"/>
+        <activity android:name=".UI.Dialog.AddTransaksi"/>
     </application>
 
 </manifest>

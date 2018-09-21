@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.kampusverse.Data.Profile;
+import com.kampusverse.Logic.LocalDB;
 import com.kampusverse.Logic.SharedData;
 import com.kampusverse.R;
 import com.kampusverse.UI.Dialog.AddDialog;
@@ -49,12 +51,50 @@ public class Beranda extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beranda);
         IntializeView();
+        // Shared Data
+        sdata = SharedData.GetInstance();
+        LocalDB db = LocalDB.GetInstance();
+
+        sdata.AddArrayJadwal(db.ReadJadwal());
+        sdata.AddArrayTugas(db.ReadTugas());
+        sdata.AddArrayUang(db.ReadUang());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalDB db = LocalDB.GetInstance();
+
+        db.SaveJadwal(sdata.GetKoleksiJadwal());
+        db.SaveTugas(sdata.GetKoleksiTugas());
+        db.SaveUang(sdata.GetKoleksiUang());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalDB db = LocalDB.GetInstance();
+
+        db.SaveJadwal(sdata.GetKoleksiJadwal());
+        db.SaveTugas(sdata.GetKoleksiTugas());
+        db.SaveUang(sdata.GetKoleksiUang());
+    }
+
+    private void IntializeView() {
+        toolbar = findViewById(R.id.toolbar);
+        title = findViewById(R.id.toolbar_title);
+        bottombar = findViewById(R.id.NavigationBot);
+        root = findViewById(R.id.root);
+        contentHamburger = findViewById(R.id.content_hamburger);
+        contentRight = findViewById(R.id.content_right);
+        fragmentlayout = findViewById(R.id.scrollView2);
+        fragmentparams = (RelativeLayout.LayoutParams) fragmentlayout.getLayoutParams();
+        fab = findViewById(R.id.fab);
 
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle(null);
         }
-
 
         View guillotineMenu = LayoutInflater.from(this).inflate(R.layout.hamburger, null);
         root.addView(guillotineMenu);
@@ -91,21 +131,6 @@ public class Beranda extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-    private void IntializeView() {
-        toolbar = findViewById(R.id.toolbar);
-        title = findViewById(R.id.toolbar_title);
-        bottombar = findViewById(R.id.NavigationBot);
-        root = findViewById(R.id.root);
-        contentHamburger = findViewById(R.id.content_hamburger);
-        contentRight = findViewById(R.id.content_right);
-        fragmentlayout = findViewById(R.id.scrollView2);
-        fragmentparams = (RelativeLayout.LayoutParams) fragmentlayout.getLayoutParams();
-        fab = findViewById(R.id.fab);
-        // Shared Data
-        sdata = SharedData.GetInstance();
-        sdata.InitializeKoleksi();
     }
 
     @Override

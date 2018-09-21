@@ -41,7 +41,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
                     android:src="@drawable/ic_action_hamburger"
-                    android:tint="@android:color/white" />
+                    android:tint="@android:color/black" />
 
                 <com.kampusverse.CanaroTextView
                     android:id="@+id/toolbar_title"
@@ -50,7 +50,7 @@
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
                     android:text="@string/app_name"
-                    android:textColor="#fff"
+                    android:textColor="#333"
                     android:textSize="@dimen/guillotine_item_text_size" />
 
                 <ImageView
@@ -60,27 +60,9 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="5dp"
                     android:src="@drawable/ic_feed"
-                    android:tint="@android:color/white" />
+                    android:tint="@android:color/black"/>
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
-
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="16dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="16dp"
-            android:background="@android:color/holo_blue_dark"
-            android:onClick="FABonCLick"
-            android:src="@drawable/ic_check_light"
-            app:backgroundTint="@color/bgLogin"
-            app:fabSize="mini"
-            app:layout_constraintBottom_toTopOf="@id/NavigationBot"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:rippleColor="?attr/colorControlHighlight" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -112,8 +94,8 @@
             android:background="?android:attr/windowBackground"
             android:foreground="?attr/selectableItemBackground"
             app:itemBackground="@color/bgBottomNavigation"
-            app:itemIconTint="@android:color/white"
-            app:itemTextColor="@android:color/white"
+            app:itemIconTint="@android:color/black"
+            app:itemTextColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -121,5 +103,21 @@
             app:menu="@menu/bottom_navi" />
 
     </android.support.constraint.ConstraintLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/holo_blue_dark"
+        android:onClick="FABonCLick"
+        android:src="@drawable/ic_check_light"
+        app:backgroundTint="@color/bgLogin"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@id/NavigationBot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="?attr/colorControlHighlight" />
 
 </FrameLayout>

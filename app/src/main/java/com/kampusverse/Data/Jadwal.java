@@ -1,20 +1,31 @@
 package com.kampusverse.Data;
 
+import android.graphics.Camera;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.kampusverse.Logic.Common;
 
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-public class Jadwal implements Parcelable{
+public class Jadwal implements Serializable{
     private String Nama, Desc, UID;
     private Calendar Reminder;
     private Common util = new Common();
 
     public Jadwal() {
+    }
+
+    public Jadwal(String nama, String desc, String UID, Long reminder) {
+        Nama = nama;
+        Desc = desc;
+        this.UID = UID;
+        Reminder = Calendar.getInstance();
+        Reminder.setTimeInMillis(reminder);
     }
 
     public Jadwal(String nama, String desc, int hari) {
@@ -24,39 +35,18 @@ public class Jadwal implements Parcelable{
         Reminder = Calendar.getInstance();
         Reminder = util.calendarByDays(Reminder,hari + 1);
     }
-
-    protected Jadwal(Parcel in) {
-        Nama = in.readString();
-        Desc = in.readString();
-        Long millis = in.readLong();
-        UID = in.readString();
+    public Jadwal(String nama, String desc, int hari, int h, int m, int s) {
+        UID = UUID.randomUUID().toString();
+        Nama = nama;
+        Desc = desc;
         Reminder = Calendar.getInstance();
-        Reminder.setTimeInMillis(millis);
-    }
-
-    public static final Creator<Jadwal> CREATOR = new Creator<Jadwal>() {
-        @Override
-        public Jadwal createFromParcel(Parcel in) {
-            return new Jadwal(in);
-        }
-
-        @Override
-        public Jadwal[] newArray(int size) {
-            return new Jadwal[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(Nama);
-        dest.writeString(Desc);
-        dest.writeLong(Reminder.getTimeInMillis());
-        dest.writeString(UID);
+        Reminder.set(
+                Reminder.get(Calendar.YEAR),
+                Reminder.get(Calendar.MONTH),
+                Reminder.get(Calendar.DAY_OF_MONTH),
+                h,m,s
+        );
+        Reminder = util.calendarByDays(Reminder,hari + 1);
     }
 
     public String getUID() { return UID; }
@@ -84,6 +74,16 @@ public class Jadwal implements Parcelable{
         Reminder = reminder;
     }
 
+    public String GetTime(){
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        return sdf.format(Reminder.getTime());
+    }
+    public boolean isToday(){
+        Calendar Today = Calendar.getInstance();
+        int day = util.timeSpanToNextMatkul(Today, Reminder);
+        if(Today.get(Calendar.DAY_OF_WEEK) == Reminder.get(Calendar.DAY_OF_WEEK)) return true;
+        return false;
+    }
     public String GetElapsedAsString() {
         Calendar Today = Calendar.getInstance();
         int day = util.timeSpanToNextMatkul(Today, Reminder);

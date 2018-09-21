@@ -11,7 +11,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".UI.Login"
+        tools:context=".UI.Register"
         android:background="@color/bgLogin"
         android:theme="@style/AppTheme.NoActionBar">
 
@@ -91,6 +91,7 @@
             android:text="REGISTER"
             android:textColor="@color/bgLogin"
             android:textSize="16sp"
+            android:onClick="RegisterOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
