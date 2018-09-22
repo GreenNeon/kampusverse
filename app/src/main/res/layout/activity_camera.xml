@@ -19,17 +19,17 @@
         android:layout_gravity="left|top"
         android:background="@drawable/ic_arrow_back_black_24dp"/>
 
-    <at.markushi.ui.CircleButton
-        android:id="@+id/circleButton"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_gravity="center|bottom"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/ic_camera_alt_black_24dp"
-        app:cb_color="@color/bp_disabled_day"
-        app:cb_pressedRingWidth="27dp" />
+        <at.markushi.ui.CircleButton
+            android:id="@+id/circleButton"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_camera_alt_black_24dp"
+            app:cb_color="@color/bp_disabled_day"
+            app:cb_pressedRingWidth="27dp" />
 
 </FrameLayout>
