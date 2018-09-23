@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kampusverse.Data.Profile;
 import com.kampusverse.Logic.ApiBase;
@@ -58,8 +59,25 @@ public class Login extends AppCompatActivity {
     private void SavenKeep(){
         SharedData sharedData = SharedData.GetInstance();
         db.SaveCurrentUser(sharedData.GetUser());
-        Intent intent = new Intent(Login.this, Beranda.class);
-        startActivity(intent);
+
+        sharedData.AddArrayJadwal(db.ReadJadwal());
+        sharedData.AddArrayTugas(db.ReadTugas());
+        sharedData.AddArrayUang(db.ReadUang());
+
+        control.GetAll(Login.this, new ApiBase.SimpleCallback() {
+            @Override
+            public void OnSuccess(String[] strings) {
+                Intent intent = new Intent(Login.this, Beranda.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void OnFailure(String message) {
+                Toast.makeText(Login.this, message, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Login.this, Beranda.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void LoginOnClick(View view) {

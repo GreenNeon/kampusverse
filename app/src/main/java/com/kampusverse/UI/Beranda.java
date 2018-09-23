@@ -49,6 +49,8 @@ public class Beranda extends AppCompatActivity {
     //Global Variable
     SharedData sdata;
     static int view_position = 0;
+    static boolean OneTime = false;
+    private LocalDB db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,29 +59,12 @@ public class Beranda extends AppCompatActivity {
         IntializeView();
         // Shared Data
         sdata = SharedData.GetInstance();
-        LocalDB db = LocalDB.GetInstance();
-
-        sdata.AddArrayJadwal(db.ReadJadwal());
-        sdata.AddArrayTugas(db.ReadTugas());
-        sdata.AddArrayUang(db.ReadUang());
-        ApiBase api = ApiBase.GetInstance();
-        api.SaveJadwal(Beranda.this, new ApiBase.SimpleCallback() {
-            @Override
-            public void OnSuccess(String[] strings) {
-
-            }
-
-            @Override
-            public void OnFailure(String message) {
-
-            }
-        });
+        db = LocalDB.GetInstance();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        LocalDB db = LocalDB.GetInstance();
 
         db.SaveJadwal(sdata.GetKoleksiJadwal());
         db.SaveTugas(sdata.GetKoleksiTugas());
@@ -89,11 +74,35 @@ public class Beranda extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LocalDB db = LocalDB.GetInstance();
 
         db.SaveJadwal(sdata.GetKoleksiJadwal());
         db.SaveTugas(sdata.GetKoleksiTugas());
         db.SaveUang(sdata.GetKoleksiUang());
+    }
+
+    private void Apicall(){
+        ApiBase api = ApiBase.GetInstance();
+        api.SaveJadwal(Beranda.this, new ApiBase.SimpleCallback() {
+            @Override
+            public void OnSuccess(String[] strings) { }
+
+            @Override
+            public void OnFailure(String message) { }
+        });
+        api.SaveTugas(Beranda.this, new ApiBase.SimpleCallback() {
+            @Override
+            public void OnSuccess(String[] strings) { }
+
+            @Override
+            public void OnFailure(String message) { }
+        });
+        api.SaveUang(Beranda.this, new ApiBase.SimpleCallback() {
+            @Override
+            public void OnSuccess(String[] strings) { }
+
+            @Override
+            public void OnFailure(String message) { }
+        });
     }
 
     private void IntializeView() {

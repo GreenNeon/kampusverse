@@ -40,7 +40,6 @@
         <activity android:name=".UI.Dialog.AddTransaksi" />
         <activity android:name=".UI.ProfileMe" />
         <activity android:name=".UI.EditProfile" />
-        <activity android:name=".UI.Camera"></activity>
     </application>
 
 </manifest>

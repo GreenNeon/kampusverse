@@ -27,6 +27,10 @@ public class Uang implements Serializable {
         this.perubahan = perubahan;
     }
 
+    public void setUID(String UID) {
+        this.UID = UID;
+    }
+
     public String getUID() { return UID; }
     public String getNama() {
         return nama;

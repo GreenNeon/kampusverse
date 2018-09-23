@@ -36,6 +36,10 @@ public class Tugas implements Serializable {
         Reminder = reminder;
     }
 
+    public void setUID(String UID) {
+        this.UID = UID;
+    }
+
     public String getUID() {
         return UID;
     }

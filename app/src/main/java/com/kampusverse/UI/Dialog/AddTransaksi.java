@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
+import com.kampusverse.Logic.ApiBase;
 import com.kampusverse.Logic.LocalDB;
 import com.kampusverse.Logic.SharedData;
 import com.kampusverse.Data.Uang;
@@ -47,7 +48,10 @@ public class AddTransaksi extends AppCompatActivity {
         Intent i = new Intent(AddTransaksi.this, Beranda.class);
         i.putExtra("addDialog", 3);
         if(simpan < 0) sdata.AddUang(save);
-        else sdata.UpdateUang(save,simpan);
+        else {
+            save.setUID(sdata.GetUang(simpan).getUID());
+            sdata.UpdateUang(save,simpan);
+        }
         LocalDB db = LocalDB.GetInstance();
 
         db.SaveUang(sdata.GetKoleksiUang());
