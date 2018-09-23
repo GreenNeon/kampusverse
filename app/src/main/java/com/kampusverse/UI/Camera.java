@@ -43,14 +43,7 @@ public class Camera extends AppCompatActivity {
             }
         });
 
-        CircleButton shot = findViewById(R.id.circleButton);
-        shot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCamera.takePicture(null, null,
-                        new PhotoHandler(getApplicationContext()));
-            }
-        });
+
     }
 
 
