@@ -89,7 +89,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:background="@drawable/button_round"
+            android:background="@drawable/button_bluelogin"
             android:onClick="LoginOnClick"
             android:text="LOGIN"
             android:textColor="@color/bgLogin"

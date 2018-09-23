@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/endblue"
     tools:context=".UI.Dialog.AddTugas">
 
     <EditText
@@ -11,7 +12,8 @@
         android:layout_width="262dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="280dp"
+        android:background="@drawable/inputdialog"
         android:ems="10"
         android:hint="Nama Jadwal"
         android:inputType="textPersonName"
@@ -29,6 +31,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Kelas / Ruang"
+        android:background="@drawable/inputdialog"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/addJadwal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,6 +60,8 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="36dp"
         android:layout_marginStart="71dp"
+        android:background="@drawable/buttonwhite"
+        android:textColor="@color/endblue"
         android:text="SIMPAN"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,6 +75,8 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="36dp"
+        android:background="@drawable/buttonwhite"
+        android:textColor="@color/endblue"
         android:text="BATAL"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/addSimpan"
@@ -80,13 +87,15 @@
     <Button
         android:id="@+id/addTanggal"
         android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/buttonwhite"
+        android:onClick="OnClickTanggal"
         android:text="Tanggal"
+        android:textColor="@color/endblue"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addJadwal"
-        android:onClick="OnClickTanggal"/>
+        app:layout_constraintTop_toBottomOf="@+id/addJadwal" />
 
     <TextView
         android:id="@+id/tTanggal"
@@ -95,10 +104,43 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="TextView"
+        android:text="Tanggal"
         android:textAlignment="center"
+        android:textColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.192"
+        app:layout_constraintHorizontal_bias="0.44"
         app:layout_constraintStart_toEndOf="@+id/addTanggal"
         app:layout_constraintTop_toBottomOf="@+id/addJadwal" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="197dp"
+        android:layout_height="159dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_book" />
+
+    <TextView
+        android:id="@+id/titleTask"
+        android:layout_width="206dp"
+        android:layout_height="58dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="89dp"
+        android:layout_marginStart="89dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="Tugas"
+        android:textColor="@color/colorAccent"
+        android:textSize="35dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/imageView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.083" />
 </android.support.constraint.ConstraintLayout>

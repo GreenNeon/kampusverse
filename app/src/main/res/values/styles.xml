@@ -75,4 +75,15 @@
         <item name="android:layout_marginLeft">@dimen/guillotine_large_margin</item>
     </style>
 
+    <style name="spinner_hari">
+        <item name="android:spinnerDropDownItemStyle">@style/spinner_drop_item_style</item>
+    </style>
+    <style name="spinner_drop_item_style">
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:gravity">center_vertical|start</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
 </resources>

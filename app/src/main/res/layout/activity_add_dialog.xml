@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/endblue"
     tools:context=".UI.Dialog.AddDialog">
 
     <EditText
@@ -11,8 +12,9 @@
         android:layout_width="262dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="280dp"
         android:ems="10"
+        android:background="@drawable/inputdialog"
         android:hint="Nama Jadwal"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/addDesc"
@@ -28,6 +30,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:background="@drawable/inputdialog"
         android:hint="Kelas / Ruang"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/addJadwal"
@@ -57,6 +60,8 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="36dp"
         android:layout_marginStart="71dp"
+        android:background="@drawable/buttonwhite"
+        android:textColor="@color/endblue"
         android:text="SIMPAN"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,6 +75,8 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="36dp"
+        android:background="@drawable/buttonwhite"
+        android:textColor="@color/endblue"
         android:text="BATAL"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/addSimpan"
@@ -81,22 +88,57 @@
         android:id="@+id/btnJam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/buttonwhite"
+        android:onClick="OnClickJam"
         android:text="Jam"
+        android:textColor="@color/endblue"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addJadwal"
-        android:onClick="OnClickJam"/>
+        app:layout_constraintTop_toBottomOf="@+id/addJadwal" />
 
     <TextView
         android:id="@+id/tvJam"
         android:layout_width="139dp"
-        android:layout_height="22dp"
+        android:layout_height="20dp"
         android:layout_marginEnd="28dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:text="TextView"
+        android:textColor="@color/endblue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnJam"
         app:layout_constraintTop_toBottomOf="@+id/addJadwal" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="197dp"
+        android:layout_height="159dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="90dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_confirm_schedule" />
+
+    <TextView
+        android:id="@+id/titleSchedule"
+        android:layout_width="206dp"
+        android:layout_height="58dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="89dp"
+        android:layout_marginStart="89dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="Jadwal"
+        android:textColor="@color/colorAccent"
+        android:textSize="35dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/imageView7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.083" />
 </android.support.constraint.ConstraintLayout>
