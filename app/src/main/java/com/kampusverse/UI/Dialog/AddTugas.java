@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.kampusverse.Data.Jadwal;
 import com.kampusverse.Data.Tugas;
+import com.kampusverse.Logic.ApiBase;
 import com.kampusverse.Logic.LocalDB;
 import com.kampusverse.Logic.SharedData;
 import com.kampusverse.R;
@@ -77,7 +78,10 @@ public class AddTugas extends AppCompatActivity implements CalendarDatePickerDia
         Intent i = new Intent(AddTugas.this, Beranda.class);
         i.putExtra("addDialog", 2);
         if(simpan < 0) sdata.AddTugas(save);
-        else sdata.UpdateTugas(save,simpan);
+        else {
+            save.setUID(sdata.GetTugas(simpan).getUID());
+            sdata.UpdateTugas(save,simpan);
+        }
         LocalDB db = LocalDB.GetInstance();
 
         db.SaveTugas(sdata.GetKoleksiTugas());
