@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment;
 import com.codetroopers.betterpickers.timepicker.TimePickerDialogFragment;
 import com.kampusverse.Data.Jadwal;
+import com.kampusverse.Logic.ApiBase;
 import com.kampusverse.Logic.LocalDB;
 import com.kampusverse.Logic.SharedData;
 import com.kampusverse.R;
@@ -73,7 +74,10 @@ public class AddDialog extends AppCompatActivity implements RadialTimePickerDial
         Intent i = new Intent(AddDialog.this, Beranda.class);
         i.putExtra("addDialog", 1);
         if(simpan < 0) sdata.AddJadwal(save);
-        else sdata.UpdateJadwal(save,simpan);
+        else {
+            save.setUID(sdata.GetJadwal(simpan).getUID());
+            sdata.UpdateJadwal(save,simpan);
+        }
 
         LocalDB db = LocalDB.GetInstance();
 

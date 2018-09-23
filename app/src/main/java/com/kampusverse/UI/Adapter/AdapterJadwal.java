@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kampusverse.Data.Jadwal;
+import com.kampusverse.Logic.ApiBase;
 import com.kampusverse.R;
 import com.kampusverse.UI.Dialog.AddDialog;
 
@@ -56,7 +57,7 @@ public class AdapterJadwal extends RecyclerView.Adapter<AdapterJadwal.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull AdapterJadwal.MyViewHolder vh, final int i) {
         String[] days = {"Unknown","Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"};
-        Jadwal data = JadwalBundle.get(i);
+        final Jadwal data = JadwalBundle.get(i);
         final int ifinal = vh.getAdapterPosition();
         vh.Nama.setText(data.getNama());
         vh.Desc.setText(data.getDesc());
@@ -73,6 +74,14 @@ public class AdapterJadwal extends RecyclerView.Adapter<AdapterJadwal.MyViewHold
         vh.bottomWraper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ApiBase api = ApiBase.GetInstance();
+                api.DeleteJadwal(context, data.getUID(), new ApiBase.SimpleCallback() {
+                    @Override
+                    public void OnSuccess(String[] strings) {}
+
+                    @Override
+                    public void OnFailure(String message) {}
+                });
                 JadwalBundle.remove(ifinal);
                 notifyItemRemoved(ifinal);
                 notifyItemRangeChanged(ifinal, getItemCount());

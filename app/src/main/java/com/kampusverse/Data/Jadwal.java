@@ -4,6 +4,8 @@ import android.graphics.Camera;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.kampusverse.Logic.Common;
 
 import java.io.Serializable;
@@ -47,6 +49,10 @@ public class Jadwal implements Serializable{
                 h,m,s
         );
         Reminder = util.calendarByDays(Reminder,hari + 1);
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
     public String getUID() { return UID; }
@@ -100,5 +106,15 @@ public class Jadwal implements Serializable{
             return "now";
         else
             return "less than a day";
+    }
+
+    public JsonObject toJSON(){
+        JsonObject json = new JsonObject();
+
+        json.addProperty("uid", getUID());
+        json.addProperty("nama", getNama());
+        json.addProperty("desc", getDesc());
+        json.addProperty("reminder", getReminder().getTimeInMillis());
+        return json;
     }
 }

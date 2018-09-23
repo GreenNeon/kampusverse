@@ -12,8 +12,10 @@ import android.widget.TextView;
 
 import com.kampusverse.Data.Jadwal;
 import com.kampusverse.Data.Tugas;
+import com.kampusverse.Logic.ApiBase;
 import com.kampusverse.R;
 import com.kampusverse.UI.Dialog.AddDialog;
+import com.kampusverse.UI.Dialog.AddTugas;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -57,7 +59,7 @@ public class AdapterTugas extends RecyclerView.Adapter<AdapterTugas.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull AdapterTugas.MyViewHolder vh, final int i) {
         String[] days = {"Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"};
-        Tugas data = TugasBundle.get(i);
+        final Tugas data = TugasBundle.get(i);
         final int ifinal = vh.getAdapterPosition();
         vh.Nama.setText(data.getNama());
         vh.Desc.setText(data.getDesc());
@@ -66,7 +68,7 @@ public class AdapterTugas extends RecyclerView.Adapter<AdapterTugas.MyViewHolder
         vh.topWraper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, AddDialog.class);
+                Intent intent = new Intent(context, AddTugas.class);
                 intent.putExtra("simpan", i);
                 context.startActivity(intent);
             }
@@ -74,6 +76,14 @@ public class AdapterTugas extends RecyclerView.Adapter<AdapterTugas.MyViewHolder
         vh.bottomWraper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ApiBase api = ApiBase.GetInstance();
+                api.DeleteTugas(context, data.getUID(), new ApiBase.SimpleCallback() {
+                    @Override
+                    public void OnSuccess(String[] strings) {}
+
+                    @Override
+                    public void OnFailure(String message) {}
+                });
                 TugasBundle.remove(ifinal);
                 notifyItemRemoved(ifinal);
                 notifyItemRangeChanged(ifinal, getItemCount());

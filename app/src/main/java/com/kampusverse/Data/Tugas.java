@@ -3,6 +3,7 @@ package com.kampusverse.Data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.JsonObject;
 import com.kampusverse.Logic.Common;
 import com.kampusverse.Logic.SharedData;
 
@@ -17,6 +18,15 @@ public class Tugas implements Serializable {
     private Common util = new Common();
 
     public Tugas() { }
+
+    public Tugas(String nama, String desc, String UID, String JUID, Long reminder) {
+        Nama = nama;
+        Desc = desc;
+        this.UID = UID;
+        this.JUID = JUID;
+        Reminder = Calendar.getInstance();
+        Reminder.setTimeInMillis(reminder);
+    }
 
     public Tugas(String nama, String desc, String JUID, Calendar reminder) {
         Nama = nama;
@@ -82,5 +92,16 @@ public class Tugas implements Serializable {
             return "now";
         else
             return "Overdue";
+    }
+
+    public JsonObject toJSON(){
+        JsonObject json = new JsonObject();
+
+        json.addProperty("UID", getUID());
+        json.addProperty("nama", getNama());
+        json.addProperty("desc", getDesc());
+        json.addProperty("JUID", getJUID());
+        json.addProperty("reminder", getReminder().getTimeInMillis());
+        return json;
     }
 }

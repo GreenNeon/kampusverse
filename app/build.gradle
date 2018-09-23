@@ -34,6 +34,7 @@ dependencies {
     implementation 'com.github.Yalantis:GuillotineMenu-Android:1.2'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.daimajia.swipelayout:library:1.2.0@aar'
+    implementation 'com.github.markushi:circlebutton:1.1'
     // NET Library
     implementation 'com.koushikdutta.ion:ion:2.+'
     // DB Library

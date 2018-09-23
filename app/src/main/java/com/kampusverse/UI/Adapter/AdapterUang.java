@@ -12,10 +12,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.kampusverse.Logic.ApiBase;
 import com.kampusverse.Logic.SharedData;
 import com.kampusverse.Data.Uang;
 import com.kampusverse.R;
 import com.kampusverse.UI.Dialog.AddDialog;
+import com.kampusverse.UI.Dialog.AddTransaksi;
 import com.kampusverse.UI.Fragments.FragmentUang;
 
 import java.util.ArrayList;
@@ -60,7 +62,7 @@ public class AdapterUang extends RecyclerView.Adapter<AdapterUang.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull AdapterUang.MyViewHolder vh, final int i) {
-        Uang data = UangBundle.get(i);
+        final Uang data = UangBundle.get(i);
 
         final int ifinal = vh.getAdapterPosition();
         vh.nama.setText(data.getNama());
@@ -80,7 +82,15 @@ public class AdapterUang extends RecyclerView.Adapter<AdapterUang.MyViewHolder> 
         vh.topWraper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity.getContext(), AddDialog.class);
+                ApiBase api = ApiBase.GetInstance();
+                api.DeleteUang(activity.getContext(), data.getUID(), new ApiBase.SimpleCallback() {
+                    @Override
+                    public void OnSuccess(String[] strings) {}
+
+                    @Override
+                    public void OnFailure(String message) {}
+                });
+                Intent intent = new Intent(activity.getContext(), AddTransaksi.class);
                 intent.putExtra("simpan", i);
                 activity.startActivity(intent);
             }

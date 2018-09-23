@@ -3,6 +3,8 @@ package com.kampusverse.Data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.JsonObject;
+
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -12,15 +14,17 @@ public class Uang implements Serializable {
 
     public Uang() {
     }
+
+    public Uang(String nama, String UID, double perubahan) {
+        this.nama = nama;
+        this.UID = UID;
+        this.perubahan = perubahan;
+    }
+
     public Uang(String nama, double perubahan) {
         this.UID = UUID.randomUUID().toString();
         this.nama = nama;
         this.perubahan = perubahan;
-    }
-
-    protected Uang(Parcel in) {
-        nama = in.readString();
-        perubahan = in.readDouble();
     }
 
     public String getUID() { return UID; }
@@ -35,5 +39,14 @@ public class Uang implements Serializable {
     }
     public void setPerubahan(double perubahan ) {
         this.perubahan = perubahan;
+    }
+
+    public JsonObject toJSON(){
+        JsonObject json = new JsonObject();
+
+        json.addProperty("uid", getUID());
+        json.addProperty("nama", getNama());
+        json.addProperty("perubahan", getPerubahan());
+        return json;
     }
 }

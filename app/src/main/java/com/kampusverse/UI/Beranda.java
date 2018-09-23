@@ -18,7 +18,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.kampusverse.Data.Jadwal;
 import com.kampusverse.Data.Profile;
+import com.kampusverse.Logic.ApiBase;
 import com.kampusverse.Logic.LocalDB;
 import com.kampusverse.Logic.SharedData;
 import com.kampusverse.R;
@@ -30,6 +32,8 @@ import com.kampusverse.UI.Fragments.FragmentJadwal;
 import com.kampusverse.UI.Fragments.FragmentTugas;
 import com.kampusverse.UI.Fragments.FragmentUang;
 import com.yalantis.guillotine.animation.GuillotineAnimation;
+
+import java.util.List;
 
 public class Beranda extends AppCompatActivity {
     //View Variable
@@ -58,6 +62,18 @@ public class Beranda extends AppCompatActivity {
         sdata.AddArrayJadwal(db.ReadJadwal());
         sdata.AddArrayTugas(db.ReadTugas());
         sdata.AddArrayUang(db.ReadUang());
+        ApiBase api = ApiBase.GetInstance();
+        api.SaveJadwal(Beranda.this, new ApiBase.SimpleCallback() {
+            @Override
+            public void OnSuccess(String[] strings) {
+
+            }
+
+            @Override
+            public void OnFailure(String message) {
+
+            }
+        });
     }
 
     @Override

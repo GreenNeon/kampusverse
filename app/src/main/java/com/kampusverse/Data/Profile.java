@@ -2,9 +2,6 @@ package com.kampusverse.Data;
 
 import android.net.Uri;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class Profile {
     private String UID;
     private String Nama, Email;
@@ -83,4 +80,5 @@ public class Profile {
     public void setFotoURL(Uri fotoURL) {
         FotoURL = fotoURL;
     }
+
 }

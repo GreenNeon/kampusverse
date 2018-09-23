@@ -11,6 +11,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.kampusverse.Data.Jadwal;
 import com.kampusverse.Data.Profile;
+import com.kampusverse.Data.Tugas;
+import com.kampusverse.Data.Uang;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
@@ -28,10 +30,15 @@ public class ApiBase {
 
         public void OnFailure(String message);
     }
+    public interface FukCallback {
+        public void OnSuccess(List<Object> list);
+    }
 
     private static ApiBase SingleBody = null;
-//    private FirebaseAuth FireAuth;
-//    private FirebaseUser FireUser;
+    private final static String URLAPI = "https://kampusbanana.herokuapp.com/api/";
+    private final static String URLUSERS = "https://kampusbanana.firebaseio.com/users";
+    private SharedData sharedData = SharedData.GetInstance();
+
 
     public static ApiBase GetInstance() {
         if (SingleBody != null) {
@@ -50,7 +57,7 @@ public class ApiBase {
         json.addProperty("token", data[4]);
 
         Ion.with(context)
-                .load("https://kampusbanana.herokuapp.com/api/refresh")
+                .load(URLAPI+"refresh")
                 .setJsonObjectBody(json)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -87,7 +94,7 @@ public class ApiBase {
         json.addProperty("password", password);
 
         Ion.with(context)
-                .load("https://kampusbanana.herokuapp.com/api/newtoken")
+                .load(URLAPI+"newtoken")
                 .setJsonObjectBody(json)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -126,7 +133,7 @@ public class ApiBase {
         json.addProperty("token", data[2]);
 
         Ion.with(context)
-                .load("https://kampusbanana.herokuapp.com/api/sendverification")
+                .load(URLAPI+"sendverification")
                 .setJsonObjectBody(json)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -148,7 +155,7 @@ public class ApiBase {
         json.addProperty("password", password);
 
         Ion.with(context)
-                .load("https://kampusbanana.herokuapp.com/api/signup")
+                .load(URLAPI+"signup")
                 .setJsonObjectBody(json)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -186,7 +193,7 @@ public class ApiBase {
         json.addProperty("email", token);
 
         Ion.with(context)
-                .load("https://kampusbanana.herokuapp.com/api/newtoken")
+                .load(URLAPI+"newtoken")
                 .setJsonObjectBody(json)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -222,10 +229,9 @@ public class ApiBase {
 
     public void GetJadwal(final Context context, String uid, String idToken, final SimpleCallback callback) {
         /*curl GET "https://kampusbanana.firebaseio.com/users/:uid.json?auth=<ID_TOKEN>"*/
-        String url = "https://kampusbanana.firebaseio.com/users/" + uid +"/Jadwal.json?auth=" + idToken;
 
         Ion.with(context)
-                .load(url)
+                .load( URLUSERS +"/"+ sharedData.GetUser().getUID() +"/Jadwal.json?auth=" + sharedData.GetUser().getIDToken())
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -242,71 +248,185 @@ public class ApiBase {
                                         obj.get("reminder").getAsLong()
                                 ));
                             }
-                        } else {
-
-                        }
-                    }
-                });
-    }
-
-    public void PutToFirebase(final Context context, String uid, String snippet, String idToken, final SimpleCallback callback) {
-        /*Buat file dengan nama yang ditentukan sendiri
-        curl PUT "https://kampusbanana.firebaseio.com/users/:uid.json?auth=<ID_TOKEN>"*/
-        /*DATA "{alanisawesome": {"name": "Alan Turing","birthday": "June 23, 1912"}}*/
-        JsonObject json = new JsonObject();
-        String url = "https://kampusbanana.firebaseio.com/users/" + uid + snippet + "?auth=" + idToken;
-
-        Ion.with(context)
-                .load("PUT", url)
-                .setJsonObjectBody(json)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        if (result.get("error") == null) {
+                            sharedData.AddArrayJadwal(list);
                             callback.OnSuccess(null);
                         } else {
-                            callback.OnFailure(null);
+                            String message = result.get("error").getAsJsonObject().get("message").getAsString();
+                            callback.OnFailure(message);
                         }
                     }
                 });
     }
 
-    public void PatchToFirebase(final Context context, String uid, String idToken) {
-        /*Update data otomatsu
-        curl PATCH  "https://kampusbanana.firebaseio.com/users/:uid.json?auth=<ID_TOKEN>"*/
-        /*DATA {"nickname": "Alan The Machine"}*/
-        JsonObject json = new JsonObject();
+    public void GetTugas(final Context context, String uid, String idToken, final SimpleCallback callback) {
+        /*curl GET "https://kampusbanana.firebaseio.com/users/:uid.json?auth=<ID_TOKEN>"*/
+
         Ion.with(context)
-                .load("PATCH", "https://kampusbanana.firebaseio.com/users/" + uid + ".json?auth=" + idToken)
+                .load(URLUSERS +"/"+ uid +"/Tugas.json?auth=" + idToken)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result.get("error") == null) {
+                            List<Tugas> list = new ArrayList<>();
+                            JsonArray arrayMain = result.getAsJsonArray();
+                            for (JsonElement element : arrayMain) {
+                                JsonObject obj = element.getAsJsonObject();
+                                list.add(new Tugas(
+                                        obj.get("nama").getAsString(),
+                                        obj.get("desc").getAsString(),
+                                        obj.get("UID").getAsString(),
+                                        obj.get("JUID").getAsString(),
+                                        obj.get("reminder").getAsLong()
+                                ));
+                            }
+                            sharedData.AddArrayTugas(list);
+                            callback.OnSuccess(null);
+                        } else {
+                            String message = result.get("error").getAsJsonObject().get("message").getAsString();
+                            callback.OnFailure(message);
+                        }
+                    }
+                });
+    }
+
+    public void GetUang(final Context context, String uid, String idToken, final SimpleCallback callback) {
+        /*curl GET "https://kampusbanana.firebaseio.com/users/:uid.json?auth=<ID_TOKEN>"*/
+
+        Ion.with(context)
+                .load(URLUSERS +"/"+ uid +"/Uang.json?auth=" + idToken)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result.get("error") == null) {
+                            List<Uang> list = new ArrayList<>();
+                            JsonArray arrayMain = result.getAsJsonArray();
+                            for (JsonElement element : arrayMain) {
+                                JsonObject obj = element.getAsJsonObject();
+                                list.add(new Uang(
+                                        obj.get("nama").getAsString(),
+                                        obj.get("UID").getAsString(),
+                                        obj.get("perubahan").getAsDouble()
+                                ));
+                            }
+                            sharedData.AddArrayUang(list);
+                            callback.OnSuccess(null);
+                        } else {
+                            String message = result.get("error").getAsJsonObject().get("message").getAsString();
+                            callback.OnFailure(message);
+                        }
+                    }
+                });
+    }
+
+    public void SaveJadwal(final Context context, final  SimpleCallback callback){
+        JsonObject json = new JsonObject();
+        if(sharedData.GetSizeOf(SharedData.KOLEKSI_JADWAL) < 1)
+            callback.OnFailure("Nothing to Sync");
+        for (Jadwal j : sharedData.GetKoleksiJadwal()) {
+            json.add(j.getUID(),j.toJSON());
+        }
+
+        Ion.with(context)
+                .load("PUT", URLUSERS+"/"+sharedData.GetUser().getUID()+"/Jadwal.json?auth="+sharedData.GetUser().getIDToken())
                 .setJsonObjectBody(json)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        if (result.get("error") == null) {
-
-                        } else {
-
-                        }
+                        callback.OnSuccess(null);
                     }
                 });
     }
 
-    public void DeleteAtFirebase(final Context context, String uid, String idToken, String targetuid) {
-        /*Delete data otomatsu
-        curl DELETE  "https://kampusbanana.firebaseio.com/users/:uid/:target.json?auth=<ID_TOKEN>"*/
+    public void SaveTugas(final Context context, final  SimpleCallback callback){
         JsonObject json = new JsonObject();
+        if(sharedData.GetSizeOf(SharedData.KOLEKSI_TUGAS) < 1)
+            callback.OnFailure("Nothing to Sync");
+        for (Tugas j : sharedData.GetKoleksiTugas()) {
+            json.add(j.getUID(),j.toJSON());
+        }
+
         Ion.with(context)
-                .load("DELETE", "https://kampusbanana.firebaseio.com/users/" + uid + "/" + targetuid + ".json?auth=" + idToken)
+                .load("PUT", URLUSERS+"/"+sharedData.GetUser().getUID()+"/Tugas.json?auth="+sharedData.GetUser().getIDToken())
+                .setJsonObjectBody(json)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        if (result.get("error") == null) {
+                        callback.OnSuccess(null);
+                    }
+                });
+    }
 
+    public void SaveUang(final Context context, final  SimpleCallback callback){
+        JsonObject json = new JsonObject();
+        if(sharedData.GetSizeOf(SharedData.KOLEKSI_UANG) < 1)
+            callback.OnFailure("Nothing to Sync");
+        for (Uang j : sharedData.GetKoleksiUang()) {
+            json.add(j.getUID(),j.toJSON());
+        }
+
+        Ion.with(context)
+                .load("PUT", URLUSERS+"/"+sharedData.GetUser().getUID()+"/Uang.json?auth="+sharedData.GetUser().getIDToken())
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        callback.OnSuccess(null);
+                    }
+                });
+    }
+
+    public void DeleteJadwal(final Context context, String uid, final SimpleCallback callback) {
+        /*Delete data otomatsu
+        curl DELETE  "https://kampusbanana.firebaseio.com/users/:uid/:target.json?auth=<ID_TOKEN>"*/
+        Ion.with(context)
+                .load("DELETE", URLUSERS +"/"+sharedData.GetUser().getUID()+"/Jadwal/"+uid+".json?auth="+sharedData.GetUser().getIDToken())
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result == null) {
+                            callback.OnSuccess(null);
                         } else {
-
+                            callback.OnFailure("wiuiui");
+                        }
+                    }
+                });
+    }
+    public void DeleteTugas(final Context context, String uid, final SimpleCallback callback) {
+        /*Delete data otomatsu
+        curl DELETE  "https://kampusbanana.firebaseio.com/users/:uid/:target.json?auth=<ID_TOKEN>"*/
+        Ion.with(context)
+                .load("DELETE", URLUSERS +"/"+sharedData.GetUser().getUID()+"/Tugas/"+uid+".json?auth="+sharedData.GetUser().getIDToken())
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result == null) {
+                            callback.OnSuccess(null);
+                        } else {
+                            callback.OnFailure("wiuiui");
+                        }
+                    }
+                });
+    }
+    public void DeleteUang(final Context context, String uid, final SimpleCallback callback) {
+        /*Delete data otomatsu
+        curl DELETE  "https://kampusbanana.firebaseio.com/users/:uid/:target.json?auth=<ID_TOKEN>"*/
+        Ion.with(context)
+                .load("DELETE", URLUSERS +"/"+sharedData.GetUser().getUID()+"/Uang/"+uid+".json?auth="+sharedData.GetUser().getIDToken())
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result == null) {
+                            callback.OnSuccess(null);
+                        } else {
+                            callback.OnFailure("wiuiui");
                         }
                     }
                 });
