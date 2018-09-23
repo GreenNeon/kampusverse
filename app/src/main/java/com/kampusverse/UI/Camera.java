@@ -9,6 +9,8 @@ import android.widget.ImageButton;
 
 import com.kampusverse.R;
 
+import at.markushi.ui.CircleButton;
+
 public class Camera extends AppCompatActivity {
 
     private android.hardware.Camera mCamera=null;
@@ -40,5 +42,17 @@ public class Camera extends AppCompatActivity {
                 System.exit(0);
             }
         });
+
+        CircleButton shot = findViewById(R.id.circleButton);
+        shot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCamera.takePicture(null, null,
+                        new PhotoHandler(getApplicationContext()));
+            }
+        });
     }
+
+
+
 }

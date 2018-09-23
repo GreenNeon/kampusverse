@@ -127,6 +127,15 @@ public class Beranda extends AppCompatActivity {
             case 3: bottombar.setSelectedItemId(R.id.navigation_uang); switchfragment(R.id.navigation_uang);break;
         }
 
+        guillotineMenu.findViewById(R.id.profile_group).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Beranda.this, ProfileMe.class);
+                startActivity(intent);
+            }
+        });
+
+
         bottombar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

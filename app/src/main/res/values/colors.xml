@@ -12,4 +12,9 @@
 
     <color name="bgBottomNavigation">#ffffff</color>
     <color name="textdark">#333</color>
+
+    <color name="graylight">#fafafa</color>
+    <color name="startblue">#09c6df</color>
+    <color name="endblue">#0bcce6</color>
+    <color name="ColorAccent">#ff4081</color>
 </resources>

@@ -23,6 +23,7 @@
             style="@style/Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/endblue"
             app:contentInsetStart="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -41,7 +42,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
                     android:src="@drawable/ic_action_hamburger"
-                    android:tint="@android:color/black" />
+                    android:tint="@color/colorAccent" />
 
                 <com.kampusverse.CanaroTextView
                     android:id="@+id/toolbar_title"
@@ -50,7 +51,7 @@
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
                     android:text="@string/app_name"
-                    android:textColor="#333"
+                    android:textColor="@color/colorAccent"
                     android:textSize="@dimen/guillotine_item_text_size" />
 
                 <ImageView
@@ -60,7 +61,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="5dp"
                     android:src="@drawable/ic_feed"
-                    android:tint="@android:color/black"/>
+                    android:tint="@color/colorAccent"/>
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
 
@@ -91,11 +92,11 @@
             android:id="@+id/NavigationBot"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="?android:attr/windowBackground"
+            android:background="@color/endblue"
             android:foreground="?attr/selectableItemBackground"
-            app:itemBackground="@color/bgBottomNavigation"
-            app:itemIconTint="@android:color/black"
-            app:itemTextColor="@android:color/black"
+            app:itemBackground="@color/endblue"
+            app:itemIconTint="@color/colorAccent"
+            app:itemTextColor="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
