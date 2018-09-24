@@ -1,6 +1,7 @@
 package com.kampusverse.Logic;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.kampusverse.Data.Jadwal;
 import com.kampusverse.Data.Profile;
@@ -53,6 +54,20 @@ public class LocalDB {
         if(current != null )
             return current;
         return null;
+    }
+
+    public void LogOut(){
+        Profile logout = GetCurrentUser();
+        logout.setRefreshToken("");
+        SaveCurrentUser(logout);
+
+        try {
+            db.del("Jadwal");
+            db.del("Tugas");
+            db.del("Uang");
+        } catch (SnappydbException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Jadwal> ReadJadwal(){

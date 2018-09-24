@@ -197,12 +197,15 @@ public class ApiBase {
                 });
     }
 
-    public void GetUserData(final Context context, String token, final SimpleCallback callback) {
+    public void UpdateUser(final  Context context, String token, final  SimpleCallback callback){
         JsonObject json = new JsonObject();
-        json.addProperty("email", token);
+        json.addProperty("token", token);
+        json.addProperty("displayName", sharedData.GetUser().getNama());
+        if(sharedData.GetUser().getFotoURL() != null)
+            json.addProperty("photoUrl", sharedData.GetUser().getFotoURL().getHost());
 
         Ion.with(context)
-                .load(URLAPI + "newtoken")
+                .load(URLAPI + "updateuser")
                 .setJsonObjectBody(json)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -211,11 +214,66 @@ public class ApiBase {
                         if (result.get("error") == null) {
                             String[] strings = {"", "", "", "", "", "", ""};
                             strings[0] = result.get("localId").getAsString();
-                            strings[1] = result.get("displayName").getAsString();
+                            if(result.get("displayName") != null)
+                                strings[1] = result.get("displayName").getAsString();
+                            else {
+                                if(sharedData.GetUser().getNama().matches(""))
+                                    strings[1] = "";
+                                else
+                                    strings[1] = sharedData.GetUser().getNama();
+                            }
                             strings[2] = result.get("email").getAsString();
-                            strings[3] = result.get("idToken").getAsString();
-                            strings[4] = result.get("refreshToken").getAsString();
-                            strings[5] = result.get("registered").getAsString();
+                            strings[3] = sharedData.GetUser().getIDToken();
+                            strings[4] = sharedData.GetUser().getRefreshToken();
+
+                            RefreshToken(context, strings, new SimpleCallback() {
+                                @Override
+                                public void OnSuccess(String[] strings) {
+                                    callback.OnSuccess(null);
+                                }
+
+                                @Override
+                                public void OnFailure(String message) {
+                                    callback.OnFailure(message);
+                                }
+                            });
+                        } else {
+                            String message = result.get("error").getAsJsonObject().get("message").getAsString();
+                            callback.OnFailure(message);
+                        }
+                    }
+                });
+    }
+
+    public void GetUserData(final Context context, String token, final SimpleCallback callback) {
+        JsonObject json = new JsonObject();
+        json.addProperty("token", token);
+
+        Ion.with(context)
+                .load(URLAPI + "getuser")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result.get("error") == null) {
+                            String[] strings = {"", "", "", "", "", "", ""};
+                            JsonObject obj = result.getAsJsonArray("users").get(0).getAsJsonObject();
+                            strings[0] = obj.get("localId").getAsString();
+
+                            if(obj.get("displayName") != null)
+                                strings[1] = obj.get("displayName").getAsString();
+                            else {
+                                if(sharedData.GetUser().getNama().matches(""))
+                                    strings[1] = "";
+                                else
+                                    strings[1] = sharedData.GetUser().getNama();
+                            }
+
+                            strings[2] = obj.get("email").getAsString();
+                            strings[3] = sharedData.GetUser().getIDToken();
+                            strings[4] = sharedData.GetUser().getRefreshToken();
+                            strings[5] = obj.get("emailVerified").getAsString();
 
                             RefreshToken(context, strings, new SimpleCallback() {
                                 @Override
