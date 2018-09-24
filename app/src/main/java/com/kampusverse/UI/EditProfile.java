@@ -161,7 +161,8 @@ public class EditProfile extends AppCompatActivity {
             InputStream in = null;
             try {
                 in = getContentResolver().openInputStream(uri);
-                ExifInterface exifInterface =new ExifInterface(in);
+                ExifInterface exifInterface;
+                exifInterface = new ExifInterface(in);
                 int rotation=0;
                 int orientation = exifInterface.getAttributeInt(
                         ExifInterface.TAG_ORIENTATION,
