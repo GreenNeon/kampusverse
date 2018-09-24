@@ -24,6 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kampusverse.BuildConfig;
+import com.kampusverse.Logic.ApiBase;
+import com.kampusverse.Logic.SharedData;
 import com.kampusverse.R;
 
 import java.io.File;
@@ -93,7 +95,7 @@ public class EditProfile extends AppCompatActivity {
             email=txtEmail.getText().toString();
             pass=txtPass.getText().toString();
 
-            if(nama.matches("")||email.matches("")||pass.matches("")){
+            if(nama.matches("")){
                 AlertDialog.Builder builder = new AlertDialog.Builder(EditProfile.this);
 
                 View view = LayoutInflater.from(EditProfile.this).inflate(R.layout.dialogbox, null);
@@ -115,8 +117,26 @@ public class EditProfile extends AppCompatActivity {
             }
             else{
                 //kalo mau diarahin activity lain atau nyimpen ke db masukinnya disini yud!!!!!!!!!!!!
+                ApiBase api = ApiBase.GetInstance();
+                SharedData.GetInstance().GetUser().setNama(nama);
+                if(pass.matches("")) {
+
+                }
+                api.UpdateUser(getApplicationContext(), SharedData.GetInstance().GetUser().getIDToken(), new ApiBase.SimpleCallback() {
+                    @Override
+                    public void OnSuccess(String[] strings) {
+                        Intent intent = new Intent(EditProfile.this, Beranda.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void OnFailure(String message) {
+                        Toast.makeText(getApplicationContext(), message,Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

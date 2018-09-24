@@ -2,6 +2,7 @@ package com.kampusverse.UI;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,9 @@ import com.kampusverse.Logic.SharedData;
 import com.kampusverse.R;
 import com.kampusverse.UI.Dialog.AddTransaksi;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Login extends AppCompatActivity {
 
     private ApiBase control = ApiBase.GetInstance();
@@ -35,6 +39,7 @@ public class Login extends AppCompatActivity {
         Email = findViewById(R.id.eUsernameRegister);
         Password = findViewById(R.id.ePasswordRegister);
         tError = findViewById(R.id.tvErrorLogin);
+        tError.setText("");
 
         db = LocalDB.GetInstance();
         db.InitializeDB(getApplicationContext());
@@ -69,6 +74,7 @@ public class Login extends AppCompatActivity {
         sharedData.AddArrayTugas(db.ReadTugas());
         sharedData.AddArrayUang(db.ReadUang());
 
+        ScheduleRefreshToken();
         control.GetAll(Login.this, new ApiBase.SimpleCallback() {
             @Override
             public void OnSuccess(String[] strings) {
@@ -87,6 +93,41 @@ public class Login extends AppCompatActivity {
 
     public void LoginOnClick(View view) {
         validasiData();
+    }
+    public void ScheduleRefreshToken(){
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+        TimerTask doAsynchronousTask = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @SuppressWarnings("unchecked")
+                    public void run() {
+                        try {
+                            SharedData sharedData = SharedData.GetInstance();
+                            Profile current = sharedData.GetUser();
+                            String[] strings = {"", "", "", "", "", "", ""};
+                            strings[0] = current.getUID();
+                            strings[1] = current.getNama();
+                            strings[2] = current.getEmail();
+                            strings[3] = current.getIDToken();
+                            strings[4] = current.getRefreshToken();
+                            control.RefreshToken(getApplicationContext(), strings, new ApiBase.SimpleCallback() {
+                                @Override
+                                public void OnSuccess(String[] strings) { }
+
+                                @Override
+                                public void OnFailure(String message) { }
+                            });
+                        }
+                        catch (Exception e) {
+                            // TODO Auto-generated catch block
+                        }
+                    }
+                });
+            }
+        };
+        timer.schedule(doAsynchronousTask, 0l, 1200000);
     }
 
     public void validasiData(){

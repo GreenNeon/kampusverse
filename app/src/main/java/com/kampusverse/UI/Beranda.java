@@ -60,6 +60,7 @@ public class Beranda extends AppCompatActivity {
         // Shared Data
         sdata = SharedData.GetInstance();
         db = LocalDB.GetInstance();
+        Apicall();
     }
 
     @Override
@@ -140,6 +141,15 @@ public class Beranda extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Beranda.this, ProfileMe.class);
+                startActivity(intent);
+            }
+        });
+        guillotineMenu.findViewById(R.id.logout_group).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.LogOut();
+                Intent intent = new Intent(Beranda.this, Login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
