@@ -1,15 +1,20 @@
 package com.kampusverse.UI.Dialog;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.kampusverse.Data.Jadwal;
@@ -34,6 +39,7 @@ public class AddTugas extends AppCompatActivity implements CalendarDatePickerDia
     private int simpan = -1;
     private Button btndate;
     private Calendar selecteddate;
+    private String desc,nama,tanggal;
     private Map<String, String> spinnerdata;
 
     @Override
@@ -72,21 +78,52 @@ public class AddTugas extends AppCompatActivity implements CalendarDatePickerDia
     }
 
     public void OnClickSimpan(View view) {
-        String spintext = "Unknown";
-        spintext = (String) spinnerdata.keySet().toArray()[spinner.getSelectedItemPosition()];
-        Tugas save = new Tugas(eNama.getText().toString(), eDesc.getText().toString(), spintext, selecteddate);
-        Intent i = new Intent(AddTugas.this, Beranda.class);
-        i.putExtra("addDialog", 2);
-        if(simpan < 0) sdata.AddTugas(save);
-        else {
-            save.setUID(sdata.GetTugas(simpan).getUID());
-            sdata.UpdateTugas(save,simpan);
-        }
-        LocalDB db = LocalDB.GetInstance();
-
-        db.SaveTugas(sdata.GetKoleksiTugas());
-        startActivity(i);
+        validasiData();
     }
+
+    public void validasiData(){
+        nama=eNama.getText().toString();
+        desc=eDesc.getText().toString();
+        tanggal=tTanggal.getText().toString();
+
+        if(nama.matches("")||desc.matches("")||tanggal.matches("")){
+            AlertDialog.Builder builder = new AlertDialog.Builder(AddTugas.this);
+
+            View view = LayoutInflater.from(AddTugas.this).inflate(R.layout.dialogbox, null);
+
+            TextView title = (TextView) view.findViewById(R.id.title);
+            ImageView imageView = (ImageView) view.findViewById(R.id.image);
+
+            title.setText("Kesalahan Input");
+
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Toast.makeText(AddTugas.this, "Mohon perbaiki inputan", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            builder.setView(view);
+            builder.show();
+        }
+        else{
+            String spintext = "Unknown";
+            spintext = (String) spinnerdata.keySet().toArray()[spinner.getSelectedItemPosition()];
+            Tugas save = new Tugas(eNama.getText().toString(), eDesc.getText().toString(), spintext, selecteddate);
+            Intent i = new Intent(AddTugas.this, Beranda.class);
+            i.putExtra("addDialog", 2);
+            if(simpan < 0) sdata.AddTugas(save);
+            else {
+                save.setUID(sdata.GetTugas(simpan).getUID());
+                sdata.UpdateTugas(save,simpan);
+            }
+            LocalDB db = LocalDB.GetInstance();
+
+            db.SaveTugas(sdata.GetKoleksiTugas());
+            startActivity(i);
+        }
+    }
+
     public void OnClickBatal(View view) {
         Intent i = new Intent(AddTugas.this, Beranda.class);
         i.putExtra("addDialog", 2);

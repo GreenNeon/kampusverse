@@ -105,7 +105,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:text="TextView"
-        android:textColor="@color/endblue"
+        android:textColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnJam"
         app:layout_constraintTop_toBottomOf="@+id/addJadwal" />

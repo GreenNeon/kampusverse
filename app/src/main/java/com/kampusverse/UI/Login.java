@@ -1,11 +1,14 @@
 package com.kampusverse.UI;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +18,7 @@ import com.kampusverse.Logic.Common;
 import com.kampusverse.Logic.LocalDB;
 import com.kampusverse.Logic.SharedData;
 import com.kampusverse.R;
+import com.kampusverse.UI.Dialog.AddTransaksi;
 
 public class Login extends AppCompatActivity {
 
@@ -22,6 +26,7 @@ public class Login extends AppCompatActivity {
     private EditText Email, Password;
     private TextView tError;
     private LocalDB db;
+    private String email,password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +86,41 @@ public class Login extends AppCompatActivity {
     }
 
     public void LoginOnClick(View view) {
-        control.Login(Login.this, Email.getText().toString(), Password.getText().toString(), new ApiBase.SimpleCallback() {
-            @Override
-            public void OnSuccess(String[] strings) { SavenKeep(); }
-            @Override
-            public void OnFailure(String message) { tError.setText(message);}
-        });
+        validasiData();
+    }
+
+    public void validasiData(){
+        email=Email.getText().toString();
+        password=Password.getText().toString();
+
+        if(email.matches("")||email.matches("")){
+            AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
+
+            View view = LayoutInflater.from(Login.this).inflate(R.layout.dialogbox, null);
+
+            TextView title = (TextView) view.findViewById(R.id.title);
+            ImageView imageView = (ImageView) view.findViewById(R.id.image);
+
+            title.setText("Kesalahan Input");
+
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Toast.makeText(Login.this, "Mohon perbaiki inputan", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            builder.setView(view);
+            builder.show();
+        }
+        else{
+            control.Login(Login.this, Email.getText().toString(), Password.getText().toString(), new ApiBase.SimpleCallback() {
+                @Override
+                public void OnSuccess(String[] strings) { SavenKeep(); }
+                @Override
+                public void OnFailure(String message) { tError.setText(message);}
+            });
+        }
     }
 
     public void RegisterOnClick(View view){

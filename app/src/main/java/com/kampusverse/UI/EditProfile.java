@@ -1,5 +1,6 @@
 package com.kampusverse.UI;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -11,9 +12,13 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +39,9 @@ public class EditProfile extends AppCompatActivity {
     TextView changeProfile,fromGallery;
     ImageView mImageView;
     String mCurrentPhotoPath;
+    Button btnFinish;
+    EditText txtNama,txtEmail,txtPass;
+    String nama,email,pass;
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int PICK_IMAGE_REQUEST = 99;
 
@@ -45,6 +53,10 @@ public class EditProfile extends AppCompatActivity {
 
         changeProfile=findViewById(R.id.changePicture);
         mImageView=findViewById(R.id.profilephoto);
+        btnFinish=findViewById(R.id.btnFinishEdit);
+        txtNama=findViewById(R.id.txtName);
+        txtEmail=findViewById(R.id.txtEmail);
+        txtPass=findViewById(R.id.txtPass);
 
         fromGallery=findViewById(R.id.fromGallery);
 
@@ -59,14 +71,51 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-// Show only images, no videos or anything else
+                // Show only images, no videos or anything else
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-// Always show the chooser (if there are multiple options available)
+                // Always show the chooser (if there are multiple options available)
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
             }
         });
 
+        btnFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validasiData();
+            }
+        });
+
+    }
+
+    public void validasiData(){
+            nama=txtNama.getText().toString();
+            email=txtEmail.getText().toString();
+            pass=txtPass.getText().toString();
+
+            if(nama.matches("")||email.matches("")||pass.matches("")){
+                AlertDialog.Builder builder = new AlertDialog.Builder(EditProfile.this);
+
+                View view = LayoutInflater.from(EditProfile.this).inflate(R.layout.dialogbox, null);
+
+                TextView title = (TextView) view.findViewById(R.id.title);
+                ImageView imageView = (ImageView) view.findViewById(R.id.image);
+
+                title.setText("Kesalahan Input");
+
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(EditProfile.this, "Mohon perbaiki inputan", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                builder.setView(view);
+                builder.show();
+            }
+            else{
+                //kalo mau diarahin activity lain atau nyimpen ke db masukinnya disini yud!!!!!!!!!!!!
+            }
     }
 
     @Override
