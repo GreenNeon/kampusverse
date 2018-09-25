@@ -73,6 +73,7 @@ public class Login extends AppCompatActivity {
         sharedData.AddArrayJadwal(db.ReadJadwal());
         sharedData.AddArrayTugas(db.ReadTugas());
         sharedData.AddArrayUang(db.ReadUang());
+        sharedData.SetUserUang(db.ReadTotalUang());
 
         ScheduleRefreshToken();
         control.GetAll(Login.this, new ApiBase.SimpleCallback() {

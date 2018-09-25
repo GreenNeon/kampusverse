@@ -106,6 +106,17 @@ public class LocalDB {
         return null;
     }
 
+    public Double ReadTotalUang(){
+        double total = 0.0;
+        try {
+            total = db.getDouble("TotalUang");
+        } catch (SnappydbException e) {
+            e.printStackTrace();
+        }
+
+        return total;
+    }
+
     public void SaveJadwal(List<Jadwal> array){
         try {
             db.put("Jadwal", array.toArray());
@@ -129,6 +140,15 @@ public class LocalDB {
             e.printStackTrace();
         }
     }
+
+    public void SaveTotalUang(double total){
+        try {
+            db.put("TotalUang", total);
+        } catch (SnappydbException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void CloseDB(){
         try {

@@ -41,7 +41,7 @@ public class FragmentUang extends Fragment {
         layout = new LinearLayoutManager(getContext());
         rview.setLayoutManager(layout);
 
-        adapter = new AdapterUang(sdata.GetKoleksiUang(), FragmentUang.this);
+        adapter = new AdapterUang(sdata.GetKoleksiUang(), FragmentUang.this, false);
         rview.setAdapter(adapter);
 
         SetBalance();

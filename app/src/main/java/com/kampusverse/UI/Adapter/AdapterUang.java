@@ -28,6 +28,7 @@ public class AdapterUang extends RecyclerView.Adapter<AdapterUang.MyViewHolder> 
     private List<Uang> UangBundle = new ArrayList<>();
     private SharedData sdata;
     private FragmentUang activity;
+    private boolean log;
 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -45,9 +46,10 @@ public class AdapterUang extends RecyclerView.Adapter<AdapterUang.MyViewHolder> 
         }
     }
 
-    public AdapterUang(List<Uang> UangBundle, FragmentUang activity) {
+    public AdapterUang(List<Uang> UangBundle, FragmentUang activity, boolean log) {
         this.UangBundle = UangBundle;
         this.activity = activity;
+        this.log = log;
     }
 
     @NonNull
@@ -82,6 +84,7 @@ public class AdapterUang extends RecyclerView.Adapter<AdapterUang.MyViewHolder> 
         vh.topWraper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(log) return;
                 ApiBase api = ApiBase.GetInstance();
                 api.DeleteUang(activity.getContext(), data.getUID(), new ApiBase.SimpleCallback() {
                     @Override
@@ -98,6 +101,7 @@ public class AdapterUang extends RecyclerView.Adapter<AdapterUang.MyViewHolder> 
         vh.bottomWraper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(log) return;
                 sdata.RemoveUang(ifinal);
                 notifyItemRemoved(ifinal);
                 notifyItemRangeChanged(ifinal, getItemCount());
