@@ -92,6 +92,13 @@ public class Jadwal implements Serializable{
     }
     public String GetElapsedAsString() {
         Calendar Today = Calendar.getInstance();
+        Today.set(
+                Today.get(Calendar.YEAR),
+                Today.get(Calendar.MONTH),
+                Today.get(Calendar.DAY_OF_MONTH),
+                Reminder.get(Calendar.HOUR_OF_DAY),
+                Reminder.get(Calendar.MINUTE)
+                );
         int day = util.timeSpanToNextMatkul(Today, Reminder);
         if(day < 0) {
             setReminder(util.nextWeekAfter(Today, Reminder));

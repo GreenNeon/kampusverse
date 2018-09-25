@@ -38,12 +38,12 @@ import java.util.Date;
 
 public class EditProfile extends AppCompatActivity {
 
-    TextView changeProfile,fromGallery;
+    TextView changeProfile, fromGallery;
     ImageView mImageView;
     String mCurrentPhotoPath;
     Button btnFinish;
-    EditText txtNama,txtEmail,txtPass;
-    String nama,email,pass;
+    EditText txtNama, txtEmail, txtPass;
+    String nama, email, pass;
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int PICK_IMAGE_REQUEST = 99;
 
@@ -53,14 +53,15 @@ public class EditProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        changeProfile=findViewById(R.id.changePicture);
-        mImageView=findViewById(R.id.profilephoto);
-        btnFinish=findViewById(R.id.btnFinishEdit);
-        txtNama=findViewById(R.id.txtName);
-        txtEmail=findViewById(R.id.txtEmail);
-        txtPass=findViewById(R.id.txtPass);
+        changeProfile = findViewById(R.id.changePicture);
+        mImageView = findViewById(R.id.profilephoto);
+        btnFinish = findViewById(R.id.btnFinishEdit);
+        txtNama = findViewById(R.id.txtName);
+        txtEmail = findViewById(R.id.txtEmail);
+        txtPass = findViewById(R.id.txtPass);
 
-        fromGallery=findViewById(R.id.fromGallery);
+        txtNama.setText(SharedData.GetInstance().GetUser().getNama());
+        fromGallery = findViewById(R.id.fromGallery);
 
         changeProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,58 +91,35 @@ public class EditProfile extends AppCompatActivity {
 
     }
 
-    public void validasiData(){
-            nama=txtNama.getText().toString();
-            email=txtEmail.getText().toString();
-            pass=txtPass.getText().toString();
+    public void validasiData() {
+        nama = txtNama.getText().toString();
+        email = txtEmail.getText().toString();
+        pass = txtPass.getText().toString();
+        //kalo mau diarahin activity lain atau nyimpen ke db masukinnya disini yud!!!!!!!!!!!!
+        ApiBase api = ApiBase.GetInstance();
+        SharedData.GetInstance().GetUser().setNama(nama);
+        if (pass.matches("")) {
 
-            if(nama.matches("")){
-                AlertDialog.Builder builder = new AlertDialog.Builder(EditProfile.this);
-
-                View view = LayoutInflater.from(EditProfile.this).inflate(R.layout.dialogbox, null);
-
-                TextView title = (TextView) view.findViewById(R.id.title);
-                ImageView imageView = (ImageView) view.findViewById(R.id.image);
-
-                title.setText("Kesalahan Input");
-
-                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(EditProfile.this, "Mohon perbaiki inputan", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                builder.setView(view);
-                builder.show();
+        }
+        api.UpdateUser(getApplicationContext(), SharedData.GetInstance().GetUser().getIDToken(), new ApiBase.SimpleCallback() {
+            @Override
+            public void OnSuccess(String[] strings) {
+                Intent intent = new Intent(EditProfile.this, Beranda.class);
+                startActivity(intent);
             }
-            else{
-                //kalo mau diarahin activity lain atau nyimpen ke db masukinnya disini yud!!!!!!!!!!!!
-                ApiBase api = ApiBase.GetInstance();
-                SharedData.GetInstance().GetUser().setNama(nama);
-                if(pass.matches("")) {
 
-                }
-                api.UpdateUser(getApplicationContext(), SharedData.GetInstance().GetUser().getIDToken(), new ApiBase.SimpleCallback() {
-                    @Override
-                    public void OnSuccess(String[] strings) {
-                        Intent intent = new Intent(EditProfile.this, Beranda.class);
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void OnFailure(String message) {
-                        Toast.makeText(getApplicationContext(), message,Toast.LENGTH_SHORT).show();
-                    }
-                });
+            @Override
+            public void OnFailure(String message) {
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             }
+        });
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==REQUEST_TAKE_PHOTO) {
+        if (requestCode == REQUEST_TAKE_PHOTO) {
             Bitmap bmp = null;
             Bitmap rotatedBitmap = null;
             try {
@@ -153,9 +131,7 @@ public class EditProfile extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        else if(requestCode==PICK_IMAGE_REQUEST)
-        {
+        } else if (requestCode == PICK_IMAGE_REQUEST) {
 
             Uri uri = data.getData();
             InputStream in = null;
@@ -163,7 +139,7 @@ public class EditProfile extends AppCompatActivity {
                 in = getContentResolver().openInputStream(uri);
                 ExifInterface exifInterface;
                 exifInterface = new ExifInterface(in);
-                int rotation=0;
+                int rotation = 0;
                 int orientation = exifInterface.getAttributeInt(
                         ExifInterface.TAG_ORIENTATION,
                         ExifInterface.ORIENTATION_NORMAL);
@@ -196,7 +172,8 @@ public class EditProfile extends AppCompatActivity {
                 if (in != null) {
                     try {
                         in.close();
-                    } catch (IOException ignored) {}
+                    } catch (IOException ignored) {
+                    }
                 }
             }
         }
@@ -236,9 +213,8 @@ public class EditProfile extends AppCompatActivity {
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-            }
-            else{
-                Toast.makeText(getApplicationContext(),"photo file null",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "photo file null", Toast.LENGTH_SHORT).show();
             }
         }
     }

@@ -80,13 +80,6 @@ public class ApiBase {
                             SharedData sdata = SharedData.GetInstance();
                             sdata.ReplaceUser(new Profile(strings[0], strings[1], strings[2], strings[3], strings[4]));
 
-                            String message;
-                            if (sdata.GetUser().getNama().trim().equalsIgnoreCase(""))
-                                message = "Hai, " + sdata.GetUser().getEmail();
-                            else
-                                message = "Hai, " + sdata.GetUser().getNama();
-
-                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
                             callback.OnSuccess(strings);
                         } else {
                             String message = result.get("error").getAsJsonObject().get("message").getAsString();
@@ -116,7 +109,6 @@ public class ApiBase {
                             strings[2] = result.get("email").getAsString();
                             strings[3] = result.get("idToken").getAsString();
                             strings[4] = result.get("refreshToken").getAsString();
-                            strings[5] = result.get("registered").getAsString();
 
                             RefreshToken(context, strings, new SimpleCallback() {
                                 @Override
@@ -202,7 +194,7 @@ public class ApiBase {
         json.addProperty("token", token);
         json.addProperty("displayName", sharedData.GetUser().getNama());
         if(sharedData.GetUser().getFotoURL() != null)
-            json.addProperty("photoUrl", sharedData.GetUser().getFotoURL().getHost());
+            json.addProperty("photoUrl", sharedData.GetUser().getFotoURL());
 
         Ion.with(context)
                 .load(URLAPI + "updateuser")
@@ -278,7 +270,7 @@ public class ApiBase {
                             RefreshToken(context, strings, new SimpleCallback() {
                                 @Override
                                 public void OnSuccess(String[] strings) {
-                                    callback.OnSuccess(null);
+                                    callback.OnSuccess(strings);
                                 }
 
                                 @Override
@@ -365,7 +357,7 @@ public class ApiBase {
                             }
                             callback.OnSuccess(listJadwal,null,null);
                         } else {
-                            String message = "non existance";
+                            String message = "";
                             callback.OnFailure(message);
                         }
                     }
@@ -398,7 +390,7 @@ public class ApiBase {
                                 callback.OnSuccess(null, listTugas, null);
                             }
                         } else {
-                            String message = "non existance";
+                            String message = "";
                             callback.OnFailure(message);
                         }
                     }
@@ -429,7 +421,7 @@ public class ApiBase {
                             }
                             callback.OnSuccess(null,null,listUang);
                         } else {
-                            String message = "non existance";
+                            String message = "";
                             callback.OnFailure(message);
                         }
                     }

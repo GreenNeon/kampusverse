@@ -70,6 +70,7 @@ public class Beranda extends AppCompatActivity {
         db.SaveTugas(sdata.GetKoleksiTugas());
         db.SaveUang(sdata.GetKoleksiUang());
         db.SaveTotalUang(sdata.GetUserUang());
+        db.SaveCurrentUser(sdata.GetUser());
     }
 
     @Override
@@ -80,6 +81,7 @@ public class Beranda extends AppCompatActivity {
         db.SaveTugas(sdata.GetKoleksiTugas());
         db.SaveUang(sdata.GetKoleksiUang());
         db.SaveTotalUang(sdata.GetUserUang());
+        db.SaveCurrentUser(sdata.GetUser());
     }
 
     private void Apicall(){
@@ -157,6 +159,14 @@ public class Beranda extends AppCompatActivity {
             }
         });
 
+        guillotineMenu.findViewById(R.id.feed_group).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Beranda.this, About.class);
+                startActivity(intent);
+            }
+        });
+
 
         bottombar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -221,7 +231,7 @@ public class Beranda extends AppCompatActivity {
                 });
             }
             sdata.GetKoleksiUang().clear();
-            sdata.GetKoleksiUang().notifyAll();
+            sdata.SetUserUang(0);
             Intent intent = getIntent();
             finish();
             startActivity(intent);

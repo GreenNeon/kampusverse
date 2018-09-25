@@ -119,32 +119,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="90dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal"
-        android:layout_marginTop="5dp">
+        android:visibility="invisible">
+
         <TextView
             android:layout_width="90dp"
             android:layout_height="30dp"
-            android:text="Password"
-            android:textAlignment="textStart"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
             android:gravity="fill"
-            android:textColor="@color/startblue"/>
+            android:text="Password"
+            android:textAlignment="textStart"
+            android:textColor="@color/startblue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/txtPass"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:layout_marginBottom="15dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
             android:ems="10"
-            android:textAlignment="center"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:textAlignment="center" />
     </LinearLayout>
 
     <Button

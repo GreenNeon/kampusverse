@@ -2,6 +2,7 @@ package com.kampusverse.Logic;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.kampusverse.Data.Jadwal;
 import com.kampusverse.Data.Profile;
@@ -57,6 +58,7 @@ public class LocalDB {
     }
 
     public void LogOut(){
+        SharedData.GetInstance().GetUser().setRefreshToken("");
         Profile logout = GetCurrentUser();
         logout.setRefreshToken("");
         SaveCurrentUser(logout);
@@ -65,6 +67,7 @@ public class LocalDB {
             db.del("Jadwal");
             db.del("Tugas");
             db.del("Uang");
+            db.del("TotalUang");
         } catch (SnappydbException e) {
             e.printStackTrace();
         }
@@ -143,7 +146,7 @@ public class LocalDB {
 
     public void SaveTotalUang(double total){
         try {
-            db.put("TotalUang", total);
+            db.putDouble("TotalUang", total);
         } catch (SnappydbException e) {
             e.printStackTrace();
         }

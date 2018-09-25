@@ -25,6 +25,7 @@ import com.kampusverse.Logic.SharedData;
 import com.kampusverse.R;
 import com.kampusverse.UI.Beranda;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Map;
@@ -74,6 +75,10 @@ public class AddTugas extends AppCompatActivity implements CalendarDatePickerDia
                     break;
                 }
             }
+            SimpleDateFormat sdf = new SimpleDateFormat("D/M/YYYY");
+            tTanggal.setText(sdf.format(Calendar.getInstance().getTime()));
+            tTanggal.setText(sdf.format(data.getReminder().getTime()));
+
         }
     }
 

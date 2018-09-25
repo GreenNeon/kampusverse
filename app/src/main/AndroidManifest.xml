@@ -18,7 +18,7 @@
     <application
         android:allowBackup="true"
         android:configChanges="orientation|screenSize"
-        android:icon="@mipmap/ic_icon"
+        android:icon="@mipmap/ic_logokampusverse"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -48,7 +48,8 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".UI.LogUang"></activity>
+        <activity android:name=".UI.LogUang" />
+        <activity android:name=".UI.About"></activity>
     </application>
 
 </manifest>
