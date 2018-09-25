@@ -80,13 +80,6 @@ public class ApiBase {
                             SharedData sdata = SharedData.GetInstance();
                             sdata.ReplaceUser(new Profile(strings[0], strings[1], strings[2], strings[3], strings[4]));
 
-                            String message;
-                            if (sdata.GetUser().getNama().trim().equalsIgnoreCase(""))
-                                message = "Hai, " + sdata.GetUser().getEmail();
-                            else
-                                message = "Hai, " + sdata.GetUser().getNama();
-
-                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
                             callback.OnSuccess(strings);
                         } else {
                             String message = result.get("error").getAsJsonObject().get("message").getAsString();
@@ -116,7 +109,6 @@ public class ApiBase {
                             strings[2] = result.get("email").getAsString();
                             strings[3] = result.get("idToken").getAsString();
                             strings[4] = result.get("refreshToken").getAsString();
-                            strings[5] = result.get("registered").getAsString();
 
                             RefreshToken(context, strings, new SimpleCallback() {
                                 @Override
@@ -202,7 +194,7 @@ public class ApiBase {
         json.addProperty("token", token);
         json.addProperty("displayName", sharedData.GetUser().getNama());
         if(sharedData.GetUser().getFotoURL() != null)
-            json.addProperty("photoUrl", sharedData.GetUser().getFotoURL().getHost());
+            json.addProperty("photoUrl", sharedData.GetUser().getFotoURL());
 
         Ion.with(context)
                 .load(URLAPI + "updateuser")
@@ -278,7 +270,7 @@ public class ApiBase {
                             RefreshToken(context, strings, new SimpleCallback() {
                                 @Override
                                 public void OnSuccess(String[] strings) {
-                                    callback.OnSuccess(null);
+                                    callback.OnSuccess(strings);
                                 }
 
                                 @Override
@@ -365,7 +357,7 @@ public class ApiBase {
                             }
                             callback.OnSuccess(listJadwal,null,null);
                         } else {
-                            String message = "non existance";
+                            String message = "";
                             callback.OnFailure(message);
                         }
                     }
@@ -398,7 +390,7 @@ public class ApiBase {
                                 callback.OnSuccess(null, listTugas, null);
                             }
                         } else {
-                            String message = "non existance";
+                            String message = "";
                             callback.OnFailure(message);
                         }
                     }
@@ -424,6 +416,36 @@ public class ApiBase {
                                 listUang.add(new Uang(
                                         json.get("nama").getAsString(),
                                         json.get("uid").getAsString(),
+                                        json.get("perubahan").getAsDouble()
+                                ));
+                            }
+                            callback.OnSuccess(null,null,listUang);
+                        } else {
+                            String message = "";
+                            callback.OnFailure(message);
+                        }
+                    }
+                });
+    }
+
+    public void GetLog(final Context context, final ExtendedCallback callback) {
+        /*curl GET "https://kampusbanana.firebaseio.com/users/:uid.json?auth=<ID_TOKEN>"*/
+
+        Ion.with(context)
+                .load(URLUSERS + "/" + sharedData.GetUser().getUID() + "/LOGUANG.json?auth=" + sharedData.GetUser().getIDToken())
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result != null) {
+                            List<Uang> listUang = new ArrayList<>();
+                            JsonObject arrayMain = result.getAsJsonObject();
+                            Set<Map.Entry<String, JsonElement>> entries = arrayMain.entrySet();//will return members of your object
+                            for (Map.Entry<String, JsonElement> entry : entries) {
+                                String keys = entry.getKey();
+                                JsonObject json = arrayMain.get(keys).getAsJsonObject();
+                                listUang.add(new Uang(
+                                        json.get("nama").getAsString(),
                                         json.get("perubahan").getAsDouble()
                                 ));
                             }
@@ -486,6 +508,23 @@ public class ApiBase {
 
         Ion.with(context)
                 .load("PUT", URLUSERS + "/" + sharedData.GetUser().getUID() + "/Uang.json?auth=" + sharedData.GetUser().getIDToken())
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        callback.OnSuccess(null);
+                    }
+                });
+    }
+
+    public void SaveLog(final Context context, Uang uang, final SimpleCallback callback){
+        JsonObject json = new JsonObject();
+        json.addProperty("nama", uang.getNama());
+        json.addProperty("perubahan", uang.getPerubahan());
+
+        Ion.with(context)
+                .load("POST", URLUSERS + "/" + sharedData.GetUser().getUID() +"/LOGUANG.json?auth=" + sharedData.GetUser().getIDToken())
                 .setJsonObjectBody(json)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {

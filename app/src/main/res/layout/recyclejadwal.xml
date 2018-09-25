@@ -36,21 +36,6 @@
         android:layout_height="match_parent">
         <!--What you want to show in SurfaceView-->
 
-        <FrameLayout
-            android:layout_width="61dp"
-            android:layout_height="match_parent"
-            android:background="@color/design_default_color_primary">
-
-            <FrameLayout
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:background="@drawable/ic_recurrence_bubble_fill"
-                android:backgroundTint="#fff">
-
-            </FrameLayout>
-        </FrameLayout>
-
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -112,6 +97,37 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.177" />
+
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="5dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:background="@color/bpBlue_focused"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/frgtNamaTugas"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/button_blue"
+                app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+                app:layout_constraintEnd_toEndOf="@+id/frameLayout"
+                app:layout_constraintHorizontal_bias="0.421"
+                app:layout_constraintStart_toStartOf="@+id/frameLayout"
+                app:layout_constraintTop_toTopOf="@+id/frameLayout"
+                app:layout_constraintVertical_bias="0.514">
+
+            </FrameLayout>
+
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>
     <!-- Surface View End -->

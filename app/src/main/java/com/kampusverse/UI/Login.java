@@ -57,7 +57,33 @@ public class Login extends AppCompatActivity {
             } else {
                 control.RefreshToken(Login.this, strings, new ApiBase.SimpleCallback() {
                     @Override
-                    public void OnSuccess(String[] strings) { SavenKeep(); }
+                    public void OnSuccess(String[] strings) {
+                        control.GetUserData(Login.this, strings[3], new ApiBase.SimpleCallback() {
+                            @Override
+                            public void OnSuccess(String[] strings) {
+                                if(strings[5].matches("") || strings[5].matches("false")){
+                                    SharedData.GetInstance().GetUser().setVerified(false);
+                                    Toast.makeText(Login.this, "Verifikasi Email Anda", Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    SharedData.GetInstance().GetUser().setVerified(true);
+                                    String message;
+                                    if (strings[1].trim().equalsIgnoreCase(""))
+                                        message = "Hai, " + strings[2];
+                                    else
+                                        message = "Hai, " + strings[1];
+
+                                    Toast.makeText(Login.this, message, Toast.LENGTH_SHORT).show();
+                                    SavenKeep();
+                                }
+                            }
+
+                            @Override
+                            public void OnFailure(String message) {
+                                tError.setText(message);
+                            }
+                        });
+                    }
 
                     @Override
                     public void OnFailure(String message) { tError.setText(message); }
@@ -73,6 +99,7 @@ public class Login extends AppCompatActivity {
         sharedData.AddArrayJadwal(db.ReadJadwal());
         sharedData.AddArrayTugas(db.ReadTugas());
         sharedData.AddArrayUang(db.ReadUang());
+        sharedData.SetUserUang(db.ReadTotalUang());
 
         ScheduleRefreshToken();
         control.GetAll(Login.this, new ApiBase.SimpleCallback() {
@@ -84,7 +111,6 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void OnFailure(String message) {
-                Toast.makeText(Login.this, message, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Login.this, Beranda.class);
                 startActivity(intent);
             }

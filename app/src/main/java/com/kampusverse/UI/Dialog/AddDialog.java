@@ -131,8 +131,8 @@ public class AddDialog extends AppCompatActivity implements RadialTimePickerDial
         RadialTimePickerDialogFragment rtpd = new RadialTimePickerDialogFragment()
                 .setOnTimeSetListener(AddDialog.this)
                 .setStartTime(h, m)
-                .setDoneText("Yay")
-                .setCancelText("Nop")
+                .setDoneText("Done")
+                .setCancelText("Cancel")
                 .setThemeDark();
         rtpd.show(getSupportFragmentManager(), "FRAG_RADIAL_PICKER");
     }

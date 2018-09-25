@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,8 +19,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.kampusverse.Data.Jadwal;
-import com.kampusverse.Data.Profile;
+import com.kampusverse.Data.Uang;
 import com.kampusverse.Logic.ApiBase;
 import com.kampusverse.Logic.LocalDB;
 import com.kampusverse.Logic.SharedData;
@@ -49,7 +49,6 @@ public class Beranda extends AppCompatActivity {
     //Global Variable
     SharedData sdata;
     static int view_position = 0;
-    static boolean OneTime = false;
     private LocalDB db;
 
     @Override
@@ -70,6 +69,8 @@ public class Beranda extends AppCompatActivity {
         db.SaveJadwal(sdata.GetKoleksiJadwal());
         db.SaveTugas(sdata.GetKoleksiTugas());
         db.SaveUang(sdata.GetKoleksiUang());
+        db.SaveTotalUang(sdata.GetUserUang());
+        db.SaveCurrentUser(sdata.GetUser());
     }
 
     @Override
@@ -79,6 +80,8 @@ public class Beranda extends AppCompatActivity {
         db.SaveJadwal(sdata.GetKoleksiJadwal());
         db.SaveTugas(sdata.GetKoleksiTugas());
         db.SaveUang(sdata.GetKoleksiUang());
+        db.SaveTotalUang(sdata.GetUserUang());
+        db.SaveCurrentUser(sdata.GetUser());
     }
 
     private void Apicall(){
@@ -130,6 +133,8 @@ public class Beranda extends AppCompatActivity {
                 .setClosedOnStart(true)
                 .build();
 
+        registerForContextMenu(contentRight);
+
         switch (getIntent().getIntExtra("addDialog",0)){
             case 0: bottombar.setSelectedItemId(R.id.navigation_beranda); switchfragment(R.id.navigation_beranda);break;
             case 1: bottombar.setSelectedItemId(R.id.navigation_jadwal); switchfragment(R.id.navigation_jadwal);break;
@@ -150,6 +155,14 @@ public class Beranda extends AppCompatActivity {
                 db.LogOut();
                 Intent intent = new Intent(Beranda.this, Login.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+
+        guillotineMenu.findViewById(R.id.feed_group).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Beranda.this, About.class);
                 startActivity(intent);
             }
         });
@@ -178,8 +191,56 @@ public class Beranda extends AppCompatActivity {
     }
 
     @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add(0,v.getId(),0, "Reset Balance");
+        menu.add(0,v.getId(),0, "See Log");
+    }
+
+    @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         return super.onCreateView(parent, name, context, attrs);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        //Toast.makeText(this, "Selected Item: " +item.getTitle(), Toast.LENGTH_SHORT).show();
+        if(item.getTitle().toString().equalsIgnoreCase("Reset Balance")) {
+            ApiBase api = ApiBase.GetInstance();
+            for (Uang uang : sdata.GetKoleksiUang()) {
+                api.DeleteUang(getApplicationContext(), uang.getUID(), new ApiBase.SimpleCallback() {
+                    @Override
+                    public void OnSuccess(String[] strings) {
+                    }
+
+                    @Override
+                    public void OnFailure(String message) {
+
+                    }
+                });
+                api.SaveLog(getApplicationContext(), uang, new ApiBase.SimpleCallback() {
+                    @Override
+                    public void OnSuccess(String[] strings) {
+
+                    }
+
+                    @Override
+                    public void OnFailure(String message) {
+
+                    }
+                });
+            }
+            sdata.GetKoleksiUang().clear();
+            sdata.SetUserUang(0);
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+
+        } else{
+            Intent intent = new Intent(Beranda.this, LogUang.class);
+            startActivity(intent);
+        }
+        return true;
     }
 
     public void switchfragment(int id) {
@@ -202,7 +263,7 @@ public class Beranda extends AppCompatActivity {
                 fragmentparams.addRule(RelativeLayout.CENTER_IN_PARENT, 0);
                 // VIEW
                 title.setText("Jadwal Kuliah");
-                contentRight.setVisibility(View.VISIBLE);
+                contentRight.setVisibility(View.INVISIBLE);
                 fab.show();
                 break;
             case R.id.navigation_tugas:
@@ -210,7 +271,7 @@ public class Beranda extends AppCompatActivity {
                 manager.beginTransaction().replace(R.id.fragmentplace, new FragmentTugas()).commit();
                 fragmentparams.addRule(RelativeLayout.CENTER_IN_PARENT, 0);
                 title.setText("Jadwal Tugas");
-                contentRight.setVisibility(View.VISIBLE);
+                contentRight.setVisibility(View.INVISIBLE);
                 fab.show();
                 break;
             case R.id.navigation_uang:

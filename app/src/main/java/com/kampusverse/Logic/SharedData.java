@@ -38,6 +38,9 @@ public class SharedData {
         return UserData;
     }
 
+    public void SetUserUang(double total) {
+        UserUang = total;
+    }
     public double GetUserUang() {
         return UserUang;
     }
