@@ -1,5 +1,6 @@
 package com.kampusverse.UI;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
@@ -31,6 +32,7 @@ public class Login extends AppCompatActivity {
     private TextView tError;
     private LocalDB db;
     private String email,password;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class Login extends AppCompatActivity {
         db = LocalDB.GetInstance();
         db.InitializeDB(getApplicationContext());
 
+        dialog=new ProgressDialog(Login.this);
+
         Profile current = db.GetCurrentUser();
         if(current != null){
             String[] strings = { "", "", "", "", "", "", ""};
@@ -55,6 +59,8 @@ public class Login extends AppCompatActivity {
             if(strings[4].trim().equalsIgnoreCase("")){
                 Email.setText(current.getEmail());
             } else {
+                dialog.setMessage("Please Wait");
+                dialog.show();
                 control.RefreshToken(Login.this, strings, new ApiBase.SimpleCallback() {
                     @Override
                     public void OnSuccess(String[] strings) {
@@ -81,12 +87,13 @@ public class Login extends AppCompatActivity {
                             @Override
                             public void OnFailure(String message) {
                                 tError.setText(message);
+                                dialog.dismiss();
                             }
                         });
                     }
 
                     @Override
-                    public void OnFailure(String message) { tError.setText(message); }
+                    public void OnFailure(String message) { tError.setText(message); dialog.dismiss();}
                 });
             }
         }
@@ -107,12 +114,14 @@ public class Login extends AppCompatActivity {
             public void OnSuccess(String[] strings) {
                 Intent intent = new Intent(Login.this, Beranda.class);
                 startActivity(intent);
+                dialog.dismiss();
             }
 
             @Override
             public void OnFailure(String message) {
                 Intent intent = new Intent(Login.this, Beranda.class);
                 startActivity(intent);
+                dialog.dismiss();
             }
         });
     }
@@ -181,11 +190,13 @@ public class Login extends AppCompatActivity {
             builder.show();
         }
         else{
+            dialog.setMessage("Please Wait");
+            dialog.show();
             control.Login(Login.this, Email.getText().toString(), Password.getText().toString(), new ApiBase.SimpleCallback() {
                 @Override
-                public void OnSuccess(String[] strings) { SavenKeep(); }
+                public void OnSuccess(String[] strings) { SavenKeep();dialog.dismiss(); }
                 @Override
-                public void OnFailure(String message) { tError.setText(message);}
+                public void OnFailure(String message) { tError.setText(message);dialog.dismiss();}
             });
         }
     }

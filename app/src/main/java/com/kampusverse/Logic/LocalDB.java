@@ -60,6 +60,14 @@ public class LocalDB {
     public void LogOut(){
         SharedData.GetInstance().GetUser().setRefreshToken("");
         Profile logout = GetCurrentUser();
+
+        // UBAH INI
+        SharedData.GetInstance().SetUserUang(0);
+        SharedData.GetInstance().ReplaceUser(null);
+        SharedData.GetInstance().GetKoleksiJadwal().clear();
+        SharedData.GetInstance().GetKoleksiTugas().clear();
+        SharedData.GetInstance().GetKoleksiUang().clear();
+
         logout.setRefreshToken("");
         SaveCurrentUser(logout);
 

@@ -90,6 +90,8 @@ public class AddTransaksi extends AppCompatActivity {
             }
             LocalDB db = LocalDB.GetInstance();
 
+
+            db.SaveTotalUang(sdata.GetUserUang());
             db.SaveUang(sdata.GetKoleksiUang());
             startActivity(i);
         }

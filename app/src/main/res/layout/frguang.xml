@@ -60,7 +60,7 @@
     <ScrollView
         android:id="@+id/sc1"
         android:layout_width="match_parent"
-        android:layout_height="431dp"
+        android:layout_height="433dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +73,7 @@
             android:id="@+id/transaksi_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/bpBlue"
+            android:background="#ffffff"
             android:visibility="visible" />
     </ScrollView>
 

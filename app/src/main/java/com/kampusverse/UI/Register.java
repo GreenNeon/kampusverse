@@ -1,5 +1,6 @@
 package com.kampusverse.UI;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -23,6 +24,7 @@ public class Register extends AppCompatActivity {
     private EditText Email, Password;
     private TextView tError;
     private String email,password;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class Register extends AppCompatActivity {
         Email = findViewById(R.id.eUsernameRegister);
         Password = findViewById(R.id.ePasswordRegister);
         tError = findViewById(R.id.tvErrorLogin);
+        dialog=new ProgressDialog(Register.this);
     }
     public void RegisterOnClick(View view){
         validasiData();
@@ -61,15 +64,18 @@ public class Register extends AppCompatActivity {
             builder.show();
         }
         else{
+            dialog.setMessage("Please Wait");
+            dialog.show();
             control.Register(Register.this, Email.getText().toString(), Password.getText().toString(), new ApiBase.SimpleCallback() {
                 @Override
                 public void OnSuccess(String[] strings) {
+                    dialog.dismiss();
                     Intent intent = new Intent(Register.this, Login.class);
                     startActivity(intent);
                 }
 
                 @Override
-                public void OnFailure(String message) { tError.setText(message); }
+                public void OnFailure(String message) { dialog.dismiss();tError.setText(message); }
             });
         }
     }

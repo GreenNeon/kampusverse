@@ -1,5 +1,6 @@
 package com.kampusverse.UI;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ public class ProfileMe extends AppCompatActivity {
     SharedData sharedData;
     TextView nama, jadwal, tugas, uang,email;
     CircleImageView foto;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class ProfileMe extends AppCompatActivity {
         uang = findViewById(R.id.profileuang);
         email = findViewById(R.id.profileemail);
 
+        dialog=new ProgressDialog(ProfileMe.this);
+
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,7 +44,8 @@ public class ProfileMe extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        dialog.setMessage("Please Wait");
+        dialog.show();
         ApiBase api = ApiBase.GetInstance();
         api.GetUserData(getApplicationContext(), sharedData.GetUser().getIDToken(), new ApiBase.SimpleCallback() {
             @Override
@@ -57,5 +62,6 @@ public class ProfileMe extends AppCompatActivity {
         tugas.setText(String.valueOf(sharedData.GetSizeOf(SharedData.KOLEKSI_TUGAS)));
         uang.setText(String.valueOf(sharedData.GetSizeOf(SharedData.KOLEKSI_UANG)));
         email.setText(sharedData.GetUser().getEmail());
+        dialog.dismiss();
     }
 }

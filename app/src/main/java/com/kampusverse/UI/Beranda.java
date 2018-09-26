@@ -69,7 +69,8 @@ public class Beranda extends AppCompatActivity {
         db.SaveJadwal(sdata.GetKoleksiJadwal());
         db.SaveTugas(sdata.GetKoleksiTugas());
         db.SaveUang(sdata.GetKoleksiUang());
-        db.SaveTotalUang(sdata.GetUserUang());
+        if(sdata.GetUserUang() > 0)
+            db.SaveTotalUang(sdata.GetUserUang());
         db.SaveCurrentUser(sdata.GetUser());
     }
 
@@ -80,7 +81,8 @@ public class Beranda extends AppCompatActivity {
         db.SaveJadwal(sdata.GetKoleksiJadwal());
         db.SaveTugas(sdata.GetKoleksiTugas());
         db.SaveUang(sdata.GetKoleksiUang());
-        db.SaveTotalUang(sdata.GetUserUang());
+        if(sdata.GetUserUang() > 0)
+            db.SaveTotalUang(sdata.GetUserUang());
         db.SaveCurrentUser(sdata.GetUser());
     }
 
